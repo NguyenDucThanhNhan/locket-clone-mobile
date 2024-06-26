@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myproject.locket_clone.model.EmailValidationResponse
+import com.myproject.locket_clone.model.SignupResponse
 import com.myproject.locket_clone.repository.Repository
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
@@ -42,5 +43,30 @@ class CreateAccountViewModel(private val repository: Repository) : ViewModel() {
 
     fun isValidCode(code: String, trueCode: String): Boolean{
         return code==trueCode
+    }
+
+    fun isValidPassword(password: String): Boolean {
+        return password.length >= 8
+    }
+
+    fun isValidConfirmPassword(password: String, confirmPassword: String): Boolean {
+        return password == confirmPassword
+    }
+
+    private val _signupResponse = MutableLiveData<SignupResponse>()
+    val signupResponse: LiveData<SignupResponse> = _signupResponse
+
+    fun signup(email: String, password: String, firstname: String, lastname: String, birthday: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.signup(email, password, firstname, lastname, birthday)
+                _signupResponse.value = response
+            } catch (e: Exception) {
+                _signupResponse.value = SignupResponse(
+                    status = 500,
+                    message = "Error: ${e.message}"
+                )
+            }
+        }
     }
 }

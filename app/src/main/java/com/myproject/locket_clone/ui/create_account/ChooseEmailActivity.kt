@@ -31,6 +31,8 @@ class ChooseEmailActivity : AppCompatActivity() {
         val createAccountViewModel =ViewModelProvider(this, viewModelFactory).get(CreateAccountViewModel::class.java)
         //code nhan tu server
         var trueCode: String = ""
+        //email se gui server
+        var userEmail: String = ""
         binding.edtEmail.setText("")
         binding.btnContinue.setBackgroundResource(R.drawable.btn_gray_button)
         binding.btnSendCode.setBackgroundResource(R.drawable.btn_gray_button)
@@ -42,6 +44,7 @@ class ChooseEmailActivity : AppCompatActivity() {
 
         //Sư kien click send code -> gui email len server
         binding.btnSendCode.setOnClickListener {
+            userEmail = binding.edtEmail.text.toString()
             val email = binding.edtEmail.text.toString()
             createAccountViewModel.validateEmail(email)
             binding.txtSendCode.visibility = View.VISIBLE
@@ -54,7 +57,10 @@ class ChooseEmailActivity : AppCompatActivity() {
             if (createAccountViewModel.isValidSixDigitNumber(code)){
                 if (createAccountViewModel.isValidCode(code, trueCode)){
                     val intent = Intent(this, ChoosePasswordActivity::class.java)
+                    intent.putExtra("USER_EMAIL", userEmail)
                     startActivity(intent)
+                } else {
+                    Toast.makeText(this, "Wrong code", Toast.LENGTH_LONG).show()
                 }
             }
         }
