@@ -1,6 +1,8 @@
 package com.myproject.locket_clone.repository
 
 import com.myproject.locket_clone.api.RetrofitInstance
+import com.myproject.locket_clone.model.Account
+import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
 import com.myproject.locket_clone.model.SigninRequest
@@ -26,6 +28,11 @@ class Repository {
 
     suspend fun pushChangePasswordEmail(email: String): EmailValidationResponse {
         val request = EmailValidationRequest(email)
-        return RetrofitInstance.api.validateEmail(request)
+        return RetrofitInstance.api.checkEmailOwner(request)
+    }
+
+    suspend fun changePassword(email: String, password: String): ChangePasswordResponse {
+        val request = Account(email, password)
+        return RetrofitInstance.api.changePassword(request)
     }
 }

@@ -62,13 +62,13 @@
                 android:id="@+id/btn_edit_infor"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:textAllCaps="false"
-                android:text="Edit Infor"
                 android:layout_gravity="center"
-                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_gray_button"
+                android:text="Edit Infor"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_gray_button"/>
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -87,11 +87,11 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:layout_marginStart="10dp"
+                    android:text="Widget Setup"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="Widget Setup" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,11 +107,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/btn_gray_top_button"
+                    android:paddingLeft="-140dp"
                     android:text="Add the widget"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-140dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -121,11 +121,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_bottom_button"
+                    android:paddingLeft="-140dp"
                     android:text="Widget Tutorial"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-140dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -133,32 +133,32 @@
                 android:id="@+id/imageView5"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-30dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-30dp"
                 android:src="@drawable/ic_plus_button_border" />
 
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-25dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-25dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-70dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-70dp"
                 android:src="@drawable/ic_question" />
 
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <LinearLayout
@@ -178,11 +178,11 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:layout_marginStart="10dp"
+                    android:text="General"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="General" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -198,11 +198,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/btn_gray_top_button"
+                    android:paddingLeft="-90dp"
                     android:text="Change email address"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-90dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -212,11 +212,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_mid_button"
+                    android:paddingLeft="-140dp"
                     android:text="Share feedback"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-140dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -226,11 +226,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_bottom_button"
+                    android:paddingLeft="-125dp"
                     android:text="Report a problem"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-125dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -238,48 +238,48 @@
                 android:id="@+id/imageView12"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-30dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-30dp"
                 android:src="@drawable/ic_report" />
 
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-25dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-25dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView14"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-70dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-70dp"
                 android:src="@drawable/ic_send" />
 
             <ImageView
                 android:id="@+id/imageView15"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView16"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-67dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-67dp"
                 android:src="@drawable/ic_email" />
 
             <ImageView
                 android:id="@+id/imageView17"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <LinearLayout
@@ -299,11 +299,11 @@
                     android:id="@+id/textView42"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:layout_marginStart="10dp"
+                    android:text="About"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="About" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -319,11 +319,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/btn_gray_top_button"
+                    android:paddingLeft="-190dp"
                     android:text="TikTok"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-190dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -333,11 +333,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_mid_button"
+                    android:paddingLeft="-170dp"
                     android:text="Instagram"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-170dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -347,11 +347,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_mid_button"
+                    android:paddingLeft="-190dp"
                     android:text="Twitter"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-190dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -361,11 +361,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_mid_button"
+                    android:paddingLeft="-146dp"
                     android:text="Share Locket"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-146dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -375,11 +375,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_mid_button"
+                    android:paddingLeft="-152dp"
                     android:text="Rate Locket"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-152dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -389,11 +389,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_mid_button"
+                    android:paddingLeft="-120dp"
                     android:text="Term of Service"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-120dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -403,11 +403,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_bottom_button"
+                    android:paddingLeft="-130dp"
                     android:text="Privacy Policy"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-130dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -415,112 +415,112 @@
                 android:id="@+id/imageView21"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-30dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-30dp"
                 android:src="@drawable/ic_lock" />
 
             <ImageView
                 android:id="@+id/imageView22"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-25dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-25dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView23"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-70dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-70dp"
                 android:src="@drawable/ic_send" />
 
             <ImageView
                 android:id="@+id/imageView24"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView25"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-67dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-67dp"
                 android:src="@drawable/ic_star" />
 
             <ImageView
                 android:id="@+id/imageView26"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView27"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-67dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-67dp"
                 android:src="@drawable/ic_share" />
 
             <ImageView
                 android:id="@+id/imageView28"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView29"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-67dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-67dp"
                 android:src="@drawable/ic_twitter" />
 
             <ImageView
                 android:id="@+id/imageView30"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView31"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginTop="-70dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-70dp"
                 android:src="@drawable/ic_instagram" />
 
             <ImageView
                 android:id="@+id/imageView32"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView33"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-75dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-75dp"
                 android:src="@drawable/ic_tiktok" />
 
             <ImageView
                 android:id="@+id/imageView34"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
             <LinearLayout
@@ -540,11 +540,11 @@
                     android:id="@+id/textVie44"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
                     android:layout_marginStart="10dp"
+                    android:text="Danger Zone"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="Danger Zone" />
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -560,11 +560,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/btn_gray_top_button"
+                    android:paddingLeft="-170dp"
                     android:text="Sign Out"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:paddingLeft="-170dp"
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -574,11 +574,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/btn_gray_bottom_button"
+                    android:paddingLeft="-120dp"
                     android:text="Delete Account"
                     android:textAllCaps="false"
                     android:textColor="@color/red"
                     android:textSize="17sp"
-                    android:paddingLeft="-120dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -586,32 +586,32 @@
                 android:id="@+id/imageView45"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-30dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-30dp"
                 android:src="@drawable/ic_delete" />
 
             <ImageView
                 android:id="@+id/imageView46"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-25dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-25dp"
                 android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/imageView47"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
-                android:layout_marginTop="-70dp"
                 android:layout_marginStart="40dp"
+                android:layout_marginTop="-70dp"
                 android:src="@drawable/ic_sign_out" />
 
             <ImageView
                 android:id="@+id/imageView48"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="-27dp"
                 android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
         </LinearLayout>

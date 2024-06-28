@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.databinding.ActivitySignInBinding
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.repository.Repository
+import com.myproject.locket_clone.ui.change_password.ChangePasswordActivity
 import com.myproject.locket_clone.ui.home.HomeActivity
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModel
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModelFactory
@@ -39,6 +40,11 @@ class SignInActivity : AppCompatActivity() {
         //Set e mail va password vao edt
         binding.edtEmail.setText(email)
         binding.edtPassword.setText(password)
+
+        binding.btnForgotPassword.setOnClickListener {
+            val intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.btnContinue.setOnClickListener {
             val email = binding.edtEmail.text.toString()
