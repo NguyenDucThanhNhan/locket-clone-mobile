@@ -23,4 +23,9 @@ class Repository {
         val request = SigninRequest(email, password)
         return RetrofitInstance.api.signin(request)
     }
+
+    suspend fun pushChangePasswordEmail(email: String): EmailValidationResponse {
+        val request = EmailValidationRequest(email)
+        return RetrofitInstance.api.validateEmail(request)
+    }
 }

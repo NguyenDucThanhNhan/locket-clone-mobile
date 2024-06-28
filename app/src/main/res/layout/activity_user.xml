@@ -10,7 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:ignore="UselessParent">
 
         <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_marginTop="30dp"
                 android:src="@drawable/welcome_img_image"
                 app:civ_border_color="@color/gray"
-                app:civ_border_width="2dp" />
+                app:civ_border_width="5dp" />
 
             <ImageButton
                 android:id="@+id/btn_add_user_photo"
@@ -95,8 +95,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -109,16 +110,509 @@
                     android:text="Add the widget"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-140dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_widget_tutorial"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_bottom_button"
+                    android:text="Widget Tutorial"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-140dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="-35dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-30dp"
                 android:layout_marginStart="40dp"
                 android:src="@drawable/ic_plus_button_border" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-25dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-70dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_question" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="65dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_user" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="General" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_change_email_address"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_gray_top_button"
+                    android:text="Change email address"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-90dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_share_feedback"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_mid_button"
+                    android:text="Share feedback"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-140dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_report"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_bottom_button"
+                    android:text="Report a problem"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-125dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-30dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_report" />
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-25dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-70dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_send" />
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-67dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_email" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="105dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView41"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_heart" />
+
+                <TextView
+                    android:id="@+id/textView42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="About" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_tiktok"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_gray_top_button"
+                    android:text="TikTok"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-190dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_instagram"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_mid_button"
+                    android:text="Instagram"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-170dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_twitter"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_mid_button"
+                    android:text="Twitter"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-190dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_share_locket"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_mid_button"
+                    android:text="Share Locket"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-146dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_rate_locket"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_mid_button"
+                    android:text="Rate Locket"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-152dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_term_of_service"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_mid_button"
+                    android:text="Term of Service"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-120dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_privacy_policy"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_bottom_button"
+                    android:text="Privacy Policy"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-130dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView21"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-30dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_lock" />
+
+            <ImageView
+                android:id="@+id/imageView22"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-25dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView23"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-70dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_send" />
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView25"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-67dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_star" />
+
+            <ImageView
+                android:id="@+id/imageView26"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView27"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-67dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_share" />
+
+            <ImageView
+                android:id="@+id/imageView28"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView29"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-67dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_twitter" />
+
+            <ImageView
+                android:id="@+id/imageView30"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView31"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="-70dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_instagram" />
+
+            <ImageView
+                android:id="@+id/imageView32"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView33"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-75dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_tiktok" />
+
+            <ImageView
+                android:id="@+id/imageView34"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="270dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView43"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_danger" />
+
+                <TextView
+                    android:id="@+id/textVie44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="Danger Zone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_sign_out"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn_gray_top_button"
+                    android:text="Sign Out"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:paddingLeft="-170dp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_delete_account"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_bottom_button"
+                    android:text="Delete Account"
+                    android:textAllCaps="false"
+                    android:textColor="@color/red"
+                    android:textSize="17sp"
+                    android:paddingLeft="-120dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView45"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-30dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_delete" />
+
+            <ImageView
+                android:id="@+id/imageView46"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-25dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
+
+            <ImageView
+                android:id="@+id/imageView47"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="-70dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/ic_sign_out" />
+
+            <ImageView
+                android:id="@+id/imageView48"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="-27dp"
+                android:layout_marginStart="345dp"
+                android:src="@drawable/ic_next" />
 
         </LinearLayout>
     </ScrollView>

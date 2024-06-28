@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myproject.locket_clone.model.EmailValidationResponse
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.repository.Repository
 import kotlinx.coroutines.launch
@@ -19,6 +20,23 @@ class SignInViewModel(private val repository: Repository) : ViewModel() {
                 _signinResponse.value = response
             } catch (e: Exception) {
                 _signinResponse.value = SigninResponse(
+                    status = 500,
+                    message = "Error: ${e.message}"
+                )
+            }
+        }
+    }
+
+    private val _emailValidationResponse = MutableLiveData<EmailValidationResponse>()
+    val emailValidationResponse: LiveData<EmailValidationResponse> = _emailValidationResponse
+
+    fun validateEmail(email: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.pushCreateAccountEmail(email)
+                _emailValidationResponse.value = response
+            } catch (e: Exception) {
+                _emailValidationResponse.value = EmailValidationResponse(
                     status = 500,
                     message = "Error: ${e.message}"
                 )

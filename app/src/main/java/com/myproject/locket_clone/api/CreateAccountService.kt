@@ -18,4 +18,7 @@ interface CreateAccountService {
 
     @POST("/access/sign-in")
     suspend fun signin(@Body request: SigninRequest): SigninResponse
+
+    @POST("/access/check-owner")
+    suspend fun checkEmailOwner(@Body request: EmailValidationRequest): EmailValidationResponse
 }
