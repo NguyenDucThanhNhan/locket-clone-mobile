@@ -46,7 +46,12 @@ class CreateAccountViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun isValidPassword(password: String): Boolean {
-        return password.length >= 8
+        val minLength = 8
+        val hasDigit = password.any { it.isDigit() }
+        val hasUpperCase = password.any { it.isUpperCase() }
+        val hasSpecialChar = password.any { !it.isLetterOrDigit() }
+
+        return password.length >= minLength && hasDigit && hasUpperCase && hasSpecialChar
     }
 
     fun isValidConfirmPassword(password: String, confirmPassword: String): Boolean {

@@ -3,10 +3,9 @@ package com.myproject.locket_clone.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityWelcomeBinding
 import com.myproject.locket_clone.ui.create_account.ChooseEmailActivity
-import com.myproject.locket_clone.ui.login.LoginActivity
+import com.myproject.locket_clone.ui.sign_in.SignInActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
@@ -21,7 +20,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }
     }

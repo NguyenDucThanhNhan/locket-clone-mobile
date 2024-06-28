@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.databinding.ActivityChooseNameBinding
 import com.myproject.locket_clone.model.SignupResponse
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.login.LoginActivity
-import com.myproject.locket_clone.viewmodel.CreateAccountViewModelFactory
+import com.myproject.locket_clone.ui.sign_in.SignInActivity
+import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModelFactory
 import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -48,12 +48,17 @@ class ChooseNameActivity : AppCompatActivity() {
             val firstname = binding.edtFirstName.text.toString()
             val lastname = binding.edtLastName.text.toString()
 
-            createAccountViewModel.signup(email, password, firstname, lastname, birthday)
+            if (firstname.isEmpty() || lastname.isEmpty() || birthday == ""){
+                Toast.makeText(this, "Please fill all information!", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            } else {
+                createAccountViewModel.signup(email, password, firstname, lastname, birthday)
 
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra("USER_EMAIL", email)
-            intent.putExtra("USER_PASSWORD", password)
-            startActivity(intent)
+                val intent = Intent(this, SignInActivity::class.java)
+                intent.putExtra("USER_EMAIL", email)
+                intent.putExtra("USER_PASSWORD", password)
+                startActivity(intent)
+            }
         }
 
         createAccountViewModel.signupResponse.observe(this, Observer { response ->

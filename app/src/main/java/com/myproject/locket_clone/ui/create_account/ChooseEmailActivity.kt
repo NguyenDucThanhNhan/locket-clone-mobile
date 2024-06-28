@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -13,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityChooseEmailBinding
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.viewmodel.CreateAccountViewModelFactory
+import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModelFactory
 import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModel
 
 class ChooseEmailActivity : AppCompatActivity() {

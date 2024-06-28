@@ -65,6 +65,6 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:background="@drawable/btn_gray_button"
+        android:background="@drawable/btn_yellow_button"
         android:text="Continue" />
 </LinearLayout>
