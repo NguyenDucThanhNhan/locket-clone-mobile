@@ -13,6 +13,7 @@ import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityChangePasswordBinding
 import com.myproject.locket_clone.repository.Repository
 import com.myproject.locket_clone.ui.create_account.ChoosePasswordActivity
+import com.myproject.locket_clone.ui.sign_in.SignInActivity
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModel
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModelFactory
 
@@ -83,6 +84,11 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
 
         })
+
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
 
         //Kiem tra dinh dang code co hop le hay khong
         binding.edtVerification.addTextChangedListener(object : TextWatcher{

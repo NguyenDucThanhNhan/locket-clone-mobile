@@ -70,7 +70,8 @@ class SignInActivity : AppCompatActivity() {
                 val intent = Intent(this, HomeActivity::class.java).apply {
                     putExtra("userId", metadata.user._id)
                     putExtra("email", metadata.user.email)
-                    putExtra("fullName", "${metadata.user.fullname.firstname} ${metadata.user.fullname.lastname}")
+                    putExtra("firstname", metadata.user.fullname.firstname)
+                    putExtra("lastname", metadata.user.fullname.lastname)
                     putExtra("birthday", metadata.user.birthday)
                     putExtra("profileImageUrl", metadata.user.profileImageUrl)
                     putExtra("signInKey", metadata.signInKey)
@@ -78,7 +79,7 @@ class SignInActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            response.status == 403 -> {
+            response.status == 400 -> {
                 val response_text = when (response.message) {
                     "Data is required" -> "Email or password is invalid"
                     "Email is not registered" -> "Email is not registered"
@@ -88,7 +89,7 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }
             else -> {
-                val response_text = "Uncorrected username or password"
+                val response_text = response.message
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }
         }

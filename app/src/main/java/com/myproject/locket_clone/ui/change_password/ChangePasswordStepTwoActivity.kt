@@ -60,11 +60,11 @@ class ChangePasswordStepTwoActivity : AppCompatActivity() {
                     intent.putExtra("USER_PASSWORD", password)
                     startActivity(intent)
                 }
-                response.status == 403 -> {
+                response.status == 400 -> {
                     Toast.makeText(this, "Data is invalid", Toast.LENGTH_LONG).show()
                 }
                 else -> {
-                    Toast.makeText(this, "Error: ${response.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
 
                 }
             }

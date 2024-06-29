@@ -114,7 +114,7 @@ class ChooseEmailActivity : AppCompatActivity() {
             var checkStatus = false
 
             when {
-                response.status == 403 -> {
+                response.status == 400 -> {
                     responseText = when (response.message) {
                         "Email is registered" -> {
                             checkStatus = false

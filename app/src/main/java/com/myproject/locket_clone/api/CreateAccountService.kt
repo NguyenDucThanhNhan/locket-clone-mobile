@@ -4,11 +4,15 @@ import com.myproject.locket_clone.model.Account
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
+import com.myproject.locket_clone.model.NameChangeRequest
+import com.myproject.locket_clone.model.NameChangeResponse
 import com.myproject.locket_clone.model.SigninRequest
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
 import com.myproject.locket_clone.model.SignupResponse
+import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 
@@ -32,4 +36,12 @@ interface CreateAccountService {
     //Doi mat khau
     @PATCH("/access/password")
     suspend fun changePassword(@Body request: Account): ChangePasswordResponse
+
+    //Doi ten
+    @PATCH("/account/name")
+    fun changeName(
+        @Header("authorization") token: String,
+        @Header("user-id") userId: String,
+        @Body request: NameChangeRequest
+    ): Call<NameChangeResponse>
 }

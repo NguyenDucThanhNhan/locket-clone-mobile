@@ -5,10 +5,13 @@ import com.myproject.locket_clone.model.Account
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
+import com.myproject.locket_clone.model.NameChangeRequest
+import com.myproject.locket_clone.model.NameChangeResponse
 import com.myproject.locket_clone.model.SigninRequest
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
 import com.myproject.locket_clone.model.SignupResponse
+import retrofit2.Call
 
 class Repository {
     suspend fun pushCreateAccountEmail(email: String): EmailValidationResponse {
@@ -34,5 +37,10 @@ class Repository {
     suspend fun changePassword(email: String, password: String): ChangePasswordResponse {
         val request = Account(email, password)
         return RetrofitInstance.api.changePassword(request)
+    }
+
+    fun changeName(token: String, userId: String, firstname: String, lastname: String): Call<NameChangeResponse> {
+        val request = NameChangeRequest(firstname, lastname)
+        return RetrofitInstance.api.changeName(token, userId, request)
     }
 }
