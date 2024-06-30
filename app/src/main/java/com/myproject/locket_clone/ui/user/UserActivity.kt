@@ -62,5 +62,6 @@ class UserActivity : AppCompatActivity() {
             intent.putExtra("USER_PROFILE", userProfile)
             startActivity(intent)
         }
+
     }
 }
