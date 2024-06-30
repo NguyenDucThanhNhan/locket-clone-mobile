@@ -15,3 +15,32 @@ data class ChangePasswordResponse(
 data class ChangePasswordMetadata(
     val code: Int? = null
 )
+
+data class ChangeEmailRequest(
+    val email: String
+)
+
+data class ChangeEmailResponse(
+    val status: Int,
+    val message: String,
+    val reasonPhrase: String? = null,
+    val metadata: ChangeEmailMetadata? = null
+)
+
+data class ChangeEmailMetadata(
+    val fullname: ChangeEmailFullname? = null,
+    val _id: String,
+    val email: String,
+    val password: String,
+    val birthday: String,
+    val profileImageUrl: String,
+    val friends: List<String>,
+    val createdAt: String,
+    val updatedAt: String,
+    val __v: Int
+)
+
+data class ChangeEmailFullname(
+    val firstname: String,
+    val lastname: String
+)

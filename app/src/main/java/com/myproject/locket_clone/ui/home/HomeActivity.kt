@@ -23,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
         val birthday = intent.getStringExtra("birthday")!!
         val profileImageUrl = intent.getStringExtra("profileImageUrl")!!
         val signInKey = intent.getStringExtra("signInKey")!!
+        val password = intent.getStringExtra("password")!!
 
         val userProfile = UserProfile(
             userId = userId,
@@ -31,7 +32,8 @@ class HomeActivity : AppCompatActivity() {
             lastname = lastname,
             birthday = birthday,
             profileImageUrl = profileImageUrl,
-            signInKey = signInKey)
+            signInKey = signInKey,
+            password = password)
 
 
         binding.btnUserProfile.setOnClickListener {

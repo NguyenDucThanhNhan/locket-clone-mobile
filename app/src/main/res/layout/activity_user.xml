@@ -206,6 +206,20 @@
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_change_birthday"
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/btn_gray_mid_button"
+                    android:paddingLeft="-134dp"
+                    android:text="Change birthday"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_share_feedback"
                     android:layout_width="350dp"
                     android:layout_height="40dp"
@@ -272,7 +286,7 @@
                 android:layout_height="23dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="-67dp"
-                android:src="@drawable/ic_email" />
+                android:src="@drawable/ic_baloon" />
 
             <ImageView
                 android:id="@+id/imageView17"
@@ -282,11 +296,28 @@
                 android:layout_marginTop="-27dp"
                 android:src="@drawable/ic_next" />
 
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="-67dp"
+                android:src="@drawable/ic_email" />
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="345dp"
+                android:layout_marginTop="-27dp"
+                android:src="@drawable/ic_next" />
+
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="105dp"
+                android:layout_marginTop="135dp"
                 android:orientation="horizontal">
 
                 <ImageView

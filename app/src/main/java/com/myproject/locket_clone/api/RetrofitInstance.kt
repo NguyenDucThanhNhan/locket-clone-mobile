@@ -14,8 +14,8 @@ object RetrofitInstance {
             .build()
     }
 
-    val api: CreateAccountService by lazy {
-        retrofit.create(CreateAccountService::class.java)
+    val api: APIService by lazy {
+        retrofit.create(APIService::class.java)
     }
 
     private val client = OkHttpClient.Builder().apply {

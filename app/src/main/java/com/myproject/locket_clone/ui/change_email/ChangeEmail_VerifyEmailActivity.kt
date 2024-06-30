@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.create_account
+package com.myproject.locket_clone.ui.change_email
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,54 +10,74 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.R
-import com.myproject.locket_clone.databinding.ActivityChooseEmailBinding
+import com.myproject.locket_clone.databinding.ActivityChangeEmailVerifyEmailBinding
+import com.myproject.locket_clone.model.ChangeEmailResponse
+import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModelFactory
-import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModel
+import com.myproject.locket_clone.ui.user.UserActivity
+import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModel
+import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModelFactory
 
-class ChooseEmailActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityChooseEmailBinding
-
+class ChangeEmail_VerifyEmailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityChangeEmailVerifyEmailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChooseEmailBinding.inflate(layoutInflater)
+        binding = ActivityChangeEmailVerifyEmailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //Khoi tao ban dau
         val repository by lazy { Repository() }
-        val viewModelFactory by lazy { CreateAccountViewModelFactory(repository) }
-        val createAccountViewModel =ViewModelProvider(this, viewModelFactory).get(CreateAccountViewModel::class.java)
+        val viewModelFactory by lazy { UserProfileViewModelFactory(repository) }
+        val userProfileViewModel = ViewModelProvider(this, viewModelFactory).get(
+            UserProfileViewModel::class.java)
         //code nhan tu server
         var trueCode: String = ""
         //email se gui server
         var userEmail: String = ""
         binding.edtEmail.setText("")
-        binding.btnContinue.setBackgroundResource(R.drawable.btn_gray_button)
+        binding.btnSave.setBackgroundResource(R.drawable.btn_gray_button)
         binding.btnSendCode.setBackgroundResource(R.drawable.btn_gray_button)
         binding.txtSendCode.visibility = View.GONE
         binding.txtVerification.visibility = View.GONE
         binding.edtVerification.visibility = View.GONE
         binding.btnSendCode.isEnabled = false
-        binding.btnContinue.isEnabled = false
+        binding.btnSave.isEnabled = false
+
+        //Nhan du lieu tu ChangeEmail_VerifyPasswordActivity
+        val userProfile: UserProfile? = intent.getSerializableExtra("USER_PROFILE") as? UserProfile
 
         //Sư kien click send code -> gui email len server
         binding.btnSendCode.setOnClickListener {
             userEmail = binding.edtEmail.text.toString()
             val email = binding.edtEmail.text.toString()
-            createAccountViewModel.validateEmail(email)
+            userProfileViewModel.validateEmail(email)
             binding.txtSendCode.visibility = View.VISIBLE
             binding.txtVerification.visibility = View.VISIBLE
             binding.edtVerification.visibility = View.VISIBLE
         }
 
-        binding.btnContinue.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             val code = binding.edtVerification.text.toString()
-            if (createAccountViewModel.isValidSixDigitNumber(code)){
-                if (createAccountViewModel.isValidCode(code, trueCode)){
-                    val intent = Intent(this, ChoosePasswordActivity::class.java)
-                    intent.putExtra("USER_EMAIL", userEmail)
-                    startActivity(intent)
+            //Kiem tra cac input co hop le hay khong
+            if (userProfileViewModel.isValidSixDigitNumber(code)){
+                if (userProfileViewModel.isValidCode(code, trueCode)){
+                    val newEmail = binding.edtEmail.text.toString()
+                    if (newEmail.isNotEmpty() && userProfile != null) {
+                        //Doi email
+                        userProfileViewModel.changeEmail(
+                            userProfile.signInKey,
+                            userProfile.userId,
+                            newEmail,
+                            onSuccess = { response ->
+                                handleEmailChangeResponse(response, userProfile, newEmail)
+                            },
+                            onFailure = { errorMessage ->
+                                Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+                            }
+                        )
+                    } else {
+                        Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_LONG).show()
+                    }
                 } else {
                     Toast.makeText(this, "Wrong code", Toast.LENGTH_LONG).show()
                 }
@@ -65,7 +85,7 @@ class ChooseEmailActivity : AppCompatActivity() {
         }
 
         //Kiem tra dinh dang email co hop le hay khong
-        binding.edtEmail.addTextChangedListener(object : TextWatcher{
+        binding.edtEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -75,7 +95,7 @@ class ChooseEmailActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 val email = binding.edtEmail.text.toString()
-                if (createAccountViewModel.isValidEmail(email)){
+                if (userProfileViewModel.isValidEmail(email)){
                     binding.btnSendCode.setBackgroundResource(R.drawable.btn_yellow_button)
                     binding.btnSendCode.isEnabled = true
                 } else {
@@ -83,7 +103,6 @@ class ChooseEmailActivity : AppCompatActivity() {
                     binding.btnSendCode.isEnabled = false
                 }
             }
-
         })
 
         //Kiem tra dinh dang code co hop le hay khong
@@ -97,19 +116,19 @@ class ChooseEmailActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 val code = binding.edtVerification.text.toString()
-                if (createAccountViewModel.isValidSixDigitNumber(code)){
-                    binding.btnContinue.setBackgroundResource(R.drawable.btn_yellow_button)
-                    binding.btnContinue.isEnabled = true
+                if (userProfileViewModel.isValidSixDigitNumber(code)){
+                    binding.btnSave.setBackgroundResource(R.drawable.btn_yellow_button)
+                    binding.btnSave.isEnabled = true
                 } else {
-                    binding.btnContinue.setBackgroundResource(R.drawable.btn_gray_button)
-                    binding.btnContinue.isEnabled = false
+                    binding.btnSave.setBackgroundResource(R.drawable.btn_gray_button)
+                    binding.btnSave.isEnabled = false
                 }
             }
 
         })
 
         //Xu ly ket qua tra ve tu server
-        createAccountViewModel.emailValidationResponse.observe(this, Observer { response ->
+        userProfileViewModel.emailValidationResponse.observe(this, Observer { response ->
             val responseText: String
             var checkStatus = false
 
@@ -145,6 +164,15 @@ class ChooseEmailActivity : AppCompatActivity() {
                 Toast.makeText(this, responseText, Toast.LENGTH_SHORT).show()
             }
         })
-
+    }
+    private fun handleEmailChangeResponse(response: ChangeEmailResponse, userProfile: UserProfile, newEmail: String) {
+        if (response.status == 200) {
+            val user = userProfile.copy(email = newEmail)
+            val intent = Intent(this, UserActivity::class.java)
+            intent.putExtra("USER_PROFILE", user)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
+        }
     }
 }

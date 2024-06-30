@@ -1,6 +1,8 @@
 package com.myproject.locket_clone.api
 
 import com.myproject.locket_clone.model.Account
+import com.myproject.locket_clone.model.ChangeEmailRequest
+import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
@@ -16,8 +18,8 @@ import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 
-interface CreateAccountService {
-    //Gui email len server de check xem co phai chinh chu hay khong danh cho tao tai khoan
+interface APIService {
+    //Gui email len server de check xem co phai chinh chu hay khong danh cho tao tai khoan va doi email
     @POST("/access/check-email")
     suspend fun validateEmail(@Body request: EmailValidationRequest): EmailValidationResponse
 
@@ -44,4 +46,19 @@ interface CreateAccountService {
         @Header("user-id") userId: String,
         @Body request: NameChangeRequest
     ): Call<NameChangeResponse>
+
+    //Dang xuat
+    @POST("/access/signout")
+    fun signOut(
+        @Header("authorization") token: String,
+        @Header("user-id") userId: String
+    ): Call<Void>
+
+    //Doi email
+    @PATCH("/account/email")
+    fun changeEmail(
+        @Header("authorization") token: String,
+        @Header("user-id") userId: String,
+        @Body request: ChangeEmailRequest
+    ): Call<ChangeEmailResponse>
 }

@@ -47,23 +47,23 @@ class SignInActivity : AppCompatActivity() {
         }
 
         binding.btnContinue.setOnClickListener {
-            val email = binding.edtEmail.text.toString()
-            val password = binding.edtPassword.text.toString()
+            email = binding.edtEmail.text.toString()
+            password = binding.edtPassword.text.toString()
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter your information!", Toast.LENGTH_LONG)
+            if (email!!.isEmpty() || password!!.isEmpty()) {
+                Toast.makeText(this, "Please enter your information!", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             } else {
-                signInViewModel.signin(email, password)
+                signInViewModel.signin(email!!, password!!)
             }
         }
 
         signInViewModel.signinResponse.observe(this, Observer { response ->
-            handleSigninResponse(response)
+            handleSigninResponse(response, password!!)
         })
     }
 
-    private fun handleSigninResponse(response: SigninResponse) {
+    private fun handleSigninResponse(response: SigninResponse, password: String) {
         when {
             response.status == 200 -> {
                 val metadata = response.metadata ?: return
@@ -75,6 +75,7 @@ class SignInActivity : AppCompatActivity() {
                     putExtra("birthday", metadata.user.birthday)
                     putExtra("profileImageUrl", metadata.user.profileImageUrl)
                     putExtra("signInKey", metadata.signInKey)
+                    putExtra("password", password)
                 }
                 startActivity(intent)
                 finish()
@@ -89,7 +90,7 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }
             else -> {
-                val response_text = response.message
+                val response_text = "Uncorrected username or password"
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }
         }

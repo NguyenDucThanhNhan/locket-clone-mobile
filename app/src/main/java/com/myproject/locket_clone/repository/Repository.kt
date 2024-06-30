@@ -2,6 +2,8 @@ package com.myproject.locket_clone.repository
 
 import com.myproject.locket_clone.api.RetrofitInstance
 import com.myproject.locket_clone.model.Account
+import com.myproject.locket_clone.model.ChangeEmailRequest
+import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
@@ -42,5 +44,13 @@ class Repository {
     fun changeName(token: String, userId: String, firstname: String, lastname: String): Call<NameChangeResponse> {
         val request = NameChangeRequest(firstname, lastname)
         return RetrofitInstance.api.changeName(token, userId, request)
+    }
+
+    fun signOut(token: String, userId: String): Call<Void> {
+        return RetrofitInstance.api.signOut(token, userId)
+    }
+
+    fun changeEmail(token: String, userId: String, request: ChangeEmailRequest): Call<ChangeEmailResponse> {
+        return RetrofitInstance.api.changeEmail(token, userId, request)
     }
 }
