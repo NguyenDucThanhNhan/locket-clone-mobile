@@ -44,3 +44,32 @@ data class ChangeEmailFullname(
     val firstname: String,
     val lastname: String
 )
+
+data class BirthdayChangeRequest(
+    val birthday: String
+)
+
+data class BirthdayChangeResponse(
+    val status: Int,
+    val message: String,
+    val reasonPhrase: String? = null,
+    val metadata: BirthdayChangeMetadata? = null
+)
+
+data class BirthdayChangeMetadata(
+    val fullname: BirthdayChangeFullname? = null,
+    val _id: String,
+    val email: String,
+    val password: String,
+    val birthday: String,
+    val profileImageUrl: String,
+    val friends: List<String>,
+    val createdAt: String,
+    val updatedAt: String,
+    val __v: Int
+)
+
+data class BirthdayChangeFullname(
+    val firstname: String,
+    val lastname: String
+)

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.LocketClone"
         tools:targetApi="31">
         <activity
+            android:name=".ui.change_birthday.ChangeBirthdayActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.change_email.ChangeEmail_VerifyEmailActivity"
             android:exported="false" />
         <activity

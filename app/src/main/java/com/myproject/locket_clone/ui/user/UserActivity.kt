@@ -9,9 +9,11 @@ import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityUserBinding
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
+import com.myproject.locket_clone.ui.change_birthday.ChangeBirthdayActivity
 import com.myproject.locket_clone.ui.change_email.ChangeEmail_VerifyEmailActivity
 import com.myproject.locket_clone.ui.change_email.ChangeEmail_VerifyPasswordActivity
 import com.myproject.locket_clone.ui.change_name.ChangeNameActivity
+import com.myproject.locket_clone.ui.home.HomeActivity
 import com.myproject.locket_clone.ui.sign_in.SignInActivity
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModel
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModelFactory
@@ -40,6 +42,13 @@ class UserActivity : AppCompatActivity() {
             binding.txtUserName.text = "${userProfile.lastname} ${userProfile.firstname}"
         }
 
+        //Click back
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("USER_PROFILE", userProfile)
+            startActivity(intent)
+        }
+
         //Click edit infor
         binding.btnEditInfor.setOnClickListener {
             val intent = Intent(this, ChangeNameActivity::class.java)
@@ -63,5 +72,11 @@ class UserActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        //Click change birthday
+        binding.btnChangeBirthday.setOnClickListener {
+            val intent = Intent(this, ChangeBirthdayActivity::class.java)
+            intent.putExtra("USER_PROFILE", userProfile)
+            startActivity(intent)
+        }
     }
 }

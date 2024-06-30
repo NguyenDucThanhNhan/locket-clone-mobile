@@ -90,7 +90,7 @@ class ChooseNameActivity : AppCompatActivity() {
         }
     }
 
-    // Hàm showDatePicker trả về chuỗi "dd/mm/yyyy" khi người dùng chọn ngày
+    // Hàm showDatePicker trả về chuỗi "dd-mm-yyyy" khi người dùng chọn ngày
     private fun showDatePicker(context: Context, onDateSelected: (String) -> Unit) {
         val calendar = Calendar.getInstance()
         val datePicker = DatePickerDialog(

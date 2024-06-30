@@ -1,6 +1,8 @@
 package com.myproject.locket_clone.api
 
 import com.myproject.locket_clone.model.Account
+import com.myproject.locket_clone.model.BirthdayChangeRequest
+import com.myproject.locket_clone.model.BirthdayChangeResponse
 import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
@@ -61,4 +63,12 @@ interface APIService {
         @Header("user-id") userId: String,
         @Body request: ChangeEmailRequest
     ): Call<ChangeEmailResponse>
+
+    //Doi ngay sinh
+    @PATCH("/account/birthday")
+    fun changeBirthday(
+        @Header("authorization") token: String,
+        @Header("user-id") userId: String,
+        @Body request: BirthdayChangeRequest
+    ): Call<BirthdayChangeResponse>
 }

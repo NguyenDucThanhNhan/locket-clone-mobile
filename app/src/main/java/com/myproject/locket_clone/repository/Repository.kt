@@ -2,6 +2,8 @@ package com.myproject.locket_clone.repository
 
 import com.myproject.locket_clone.api.RetrofitInstance
 import com.myproject.locket_clone.model.Account
+import com.myproject.locket_clone.model.BirthdayChangeRequest
+import com.myproject.locket_clone.model.BirthdayChangeResponse
 import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
@@ -52,5 +54,9 @@ class Repository {
 
     fun changeEmail(token: String, userId: String, request: ChangeEmailRequest): Call<ChangeEmailResponse> {
         return RetrofitInstance.api.changeEmail(token, userId, request)
+    }
+
+    fun changeBirthday(token: String, userId: String, request: BirthdayChangeRequest): Call<BirthdayChangeResponse> {
+        return RetrofitInstance.api.changeBirthday(token, userId, request)
     }
 }

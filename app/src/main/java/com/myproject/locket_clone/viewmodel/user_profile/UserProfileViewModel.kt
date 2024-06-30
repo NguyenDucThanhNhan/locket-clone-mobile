@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myproject.locket_clone.model.BirthdayChangeRequest
+import com.myproject.locket_clone.model.BirthdayChangeResponse
 import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.EmailValidationResponse
@@ -91,6 +93,24 @@ class UserProfileViewModel(private val repository: Repository) : ViewModel() {
 
             override fun onFailure(call: Call<ChangeEmailResponse>, t: Throwable) {
                 onFailure("Failed to change email: ${t.message}")
+            }
+        })
+    }
+
+    fun changeBirthday(token: String, userId: String, birthday: String, onSuccess: (BirthdayChangeResponse) -> Unit, onFailure: (String) -> Unit) {
+        val request = BirthdayChangeRequest(birthday)
+        val response = repository.changeBirthday(token, userId, request)
+        response.enqueue(object : Callback<BirthdayChangeResponse> {
+            override fun onResponse(call: Call<BirthdayChangeResponse>, response: Response<BirthdayChangeResponse>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { onSuccess(it) } ?: onFailure("Response body is null")
+                } else {
+                    onFailure("Failed to change birthday: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<BirthdayChangeResponse>, t: Throwable) {
+                onFailure("Failed to change birthday: ${t.message}")
             }
         })
     }
