@@ -15,7 +15,13 @@ import com.myproject.locket_clone.model.SigninRequest
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
 import com.myproject.locket_clone.model.SignupResponse
+import com.myproject.locket_clone.model.UpdateProfileImageResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
+import retrofit2.HttpException
+import java.io.File
+import java.io.IOException
 
 class Repository {
     suspend fun pushCreateAccountEmail(email: String): EmailValidationResponse {
@@ -59,4 +65,9 @@ class Repository {
     fun changeBirthday(token: String, userId: String, request: BirthdayChangeRequest): Call<BirthdayChangeResponse> {
         return RetrofitInstance.api.changeBirthday(token, userId, request)
     }
+
+    fun updateProfileImage(authorization: String, userId: String, image: MultipartBody.Part): Call<UpdateProfileImageResponse> {
+        return RetrofitInstance.api.updateProfileImage(authorization, userId, image)
+    }
+
 }

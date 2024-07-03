@@ -14,11 +14,15 @@ import com.myproject.locket_clone.model.SigninRequest
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
 import com.myproject.locket_clone.model.SignupResponse
+import com.myproject.locket_clone.model.UpdateProfileImageResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface APIService {
     //Gui email len server de check xem co phai chinh chu hay khong danh cho tao tai khoan va doi email
@@ -71,4 +75,14 @@ interface APIService {
         @Header("user-id") userId: String,
         @Body request: BirthdayChangeRequest
     ): Call<BirthdayChangeResponse>
+
+    //Doi avatar
+    @PATCH("account/profile-image")
+    @Multipart
+    fun updateProfileImage(
+        @Header("authorization") token: String,
+        @Header("user-id") userId: String,
+        @Part image: MultipartBody.Part
+    ): Call<UpdateProfileImageResponse>
+
 }

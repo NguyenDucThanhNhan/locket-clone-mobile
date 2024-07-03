@@ -90,7 +90,7 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }
             else -> {
-                val response_text = "Uncorrected username or password"
+                val response_text = response.message
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }
         }

@@ -73,3 +73,28 @@ data class BirthdayChangeFullname(
     val firstname: String,
     val lastname: String
 )
+
+data class UpdateProfileImageResponse(
+    val message: String,
+    val status: Int,
+    val reasonPhrase: String,
+    val metadata: UpdateProfileImageMetadata
+)
+
+data class UpdateProfileImageMetadata(
+    val fullname: UpdateProfileImageFullname,
+    val _id: String,
+    val email: String,
+    val password: String,
+    val birthday: String,
+    val profileImageUrl: String,
+    val friends: List<String>,
+    val createdAt: String,
+    val updatedAt: String,
+    val __v: Int
+)
+
+data class UpdateProfileImageFullname(
+    val firstname: String,
+    val lastname: String
+)

@@ -8,7 +8,7 @@ data class UserProfile(
     val firstname: String,
     val lastname: String,
     val birthday: String,
-    val profileImageUrl: String,
+    var profileImageUrl: String,
     val signInKey: String,
     val password: String
 ) : Serializable

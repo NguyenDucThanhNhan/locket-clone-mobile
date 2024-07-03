@@ -10,11 +10,15 @@ import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.EmailValidationResponse
 import com.myproject.locket_clone.model.NameChangeResponse
+import com.myproject.locket_clone.model.UpdateProfileImageResponse
 import com.myproject.locket_clone.repository.Repository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 import java.util.regex.Pattern
 
 class UserProfileViewModel(private val repository: Repository) : ViewModel() {
@@ -114,4 +118,35 @@ class UserProfileViewModel(private val repository: Repository) : ViewModel() {
             }
         })
     }
+
+    fun updateProfileImage(
+        authorization: String,
+        userId: String,
+        image: MultipartBody.Part,
+        onSuccess: (UpdateProfileImageResponse) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.updateProfileImage(authorization, userId, image)
+                response.enqueue(object : Callback<UpdateProfileImageResponse> {
+                    override fun onResponse(call: Call<UpdateProfileImageResponse>, response: Response<UpdateProfileImageResponse>) {
+                        if (response.isSuccessful && response.body() != null) {
+                            onSuccess(response.body()!!)
+                        } else {
+                            onFailure("Failed to update profile image: ${response.message()}")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UpdateProfileImageResponse>, t: Throwable) {
+                        onFailure("Failed to update profile image: ${t.message}")
+                    }
+                })
+            } catch (e: Exception) {
+                onFailure(e.message ?: "Unknown error")
+            }
+        }
+    }
+
+
 }
