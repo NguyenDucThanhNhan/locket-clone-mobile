@@ -1,6 +1,7 @@
 package com.myproject.locket_clone.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SigninRequest(
     val email: String,
@@ -27,8 +28,16 @@ data class User(
     val birthday: String,
     @SerializedName("profileImageUrl")
     val profileImageUrl: String,
-    val friends: List<Any>,
+    val sentInviteList: List<Friend>,
+    val receivedInviteList: List<Friend>,
+    val friendList: List<Friend>,
     val createdAt: String,
     val updatedAt: String,
     val __v: Int
 )
+
+data class Friend(
+    val id: String,
+    val name: Fullname,
+    val profileImageUrl: String
+) : Serializable

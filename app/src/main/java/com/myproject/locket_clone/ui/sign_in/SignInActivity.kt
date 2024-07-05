@@ -3,11 +3,15 @@ package com.myproject.locket_clone.ui.sign_in
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.databinding.ActivitySignInBinding
+import com.myproject.locket_clone.model.Friend
+import com.myproject.locket_clone.model.Fullname
 import com.myproject.locket_clone.model.SigninResponse
+import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
 import com.myproject.locket_clone.ui.change_password.ChangePasswordActivity
 import com.myproject.locket_clone.ui.home.HomeActivity
@@ -67,15 +71,57 @@ class SignInActivity : AppCompatActivity() {
         when {
             response.status == 200 -> {
                 val metadata = response.metadata ?: return
+
+                val friendList: ArrayList<Friend> = ArrayList()
+                val sentInviteList: ArrayList<Friend> = ArrayList()
+                val receivedInviteList: ArrayList<Friend> = ArrayList()
+
+                for (friendData in metadata.user.friendList) {
+                    val id = friendData.id
+                    val firstname = friendData.name.firstname
+                    val lastname = friendData.name.lastname
+                    val profileImageUrl = friendData.profileImageUrl
+
+                    val friend = Friend(id, Fullname(firstname, lastname), profileImageUrl)
+                    friendList.add(friend)
+                }
+
+                for (friendData in metadata.user.sentInviteList) {
+                    val id = friendData.id
+                    val firstname = friendData.name.firstname
+                    val lastname = friendData.name.lastname
+                    val profileImageUrl = friendData.profileImageUrl
+
+                    val friend = Friend(id, Fullname(firstname, lastname), profileImageUrl)
+                    sentInviteList.add(friend)
+                }
+
+                for (friendData in metadata.user.sentInviteList) {
+                    val id = friendData.id
+                    val firstname = friendData.name.firstname
+                    val lastname = friendData.name.lastname
+                    val profileImageUrl = friendData.profileImageUrl
+
+                    val friend = Friend(id, Fullname(firstname, lastname), profileImageUrl)
+                    receivedInviteList.add(friend)
+                }
+
+                val userProfile = UserProfile(
+                    email = metadata.user.email,
+                    userId = metadata.user._id,
+                    firstname = metadata.user.fullname.firstname,
+                    lastname = metadata.user.fullname.lastname,
+                    birthday = metadata.user.birthday,
+                    profileImageUrl = metadata.user.profileImageUrl,
+                    signInKey = metadata.signInKey,
+                    password = password
+                )
+
                 val intent = Intent(this, HomeActivity::class.java).apply {
-                    putExtra("userId", metadata.user._id)
-                    putExtra("email", metadata.user.email)
-                    putExtra("firstname", metadata.user.fullname.firstname)
-                    putExtra("lastname", metadata.user.fullname.lastname)
-                    putExtra("birthday", metadata.user.birthday)
-                    putExtra("profileImageUrl", metadata.user.profileImageUrl)
-                    putExtra("signInKey", metadata.signInKey)
-                    putExtra("password", password)
+                    putExtra("USER_PROFILE", userProfile)
+                    putExtra("friendList", friendList)
+                    putExtra("sentInviteList", sentInviteList)
+                    putExtra("receivedInviteList", receivedInviteList)
                 }
                 startActivity(intent)
                 finish()
