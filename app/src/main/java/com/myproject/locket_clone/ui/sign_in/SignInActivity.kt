@@ -119,9 +119,9 @@ class SignInActivity : AppCompatActivity() {
 
                 val intent = Intent(this, HomeActivity::class.java).apply {
                     putExtra("USER_PROFILE", userProfile)
-                    putExtra("friendList", friendList)
-                    putExtra("sentInviteList", sentInviteList)
-                    putExtra("receivedInviteList", receivedInviteList)
+                    putExtra("FRIEND_LIST", friendList)
+                    putExtra("SENT_INVITE_LIST", sentInviteList)
+                    putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
                 }
                 startActivity(intent)
                 finish()

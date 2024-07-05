@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityChangeNameBinding
+import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.NameChangeResponse
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
@@ -20,6 +21,9 @@ import com.squareup.picasso.Picasso
 
 class ChangeNameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeNameBinding
+    private lateinit var friendList: ArrayList<Friend>
+    private lateinit var sentInviteList: ArrayList<Friend>
+    private lateinit var receivedInviteList: ArrayList<Friend>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeNameBinding.inflate(layoutInflater)
@@ -33,6 +37,9 @@ class ChangeNameActivity : AppCompatActivity() {
 
         //Nhan du lieu tu UserActivity
         val userProfile: UserProfile? = intent.getSerializableExtra("USER_PROFILE") as? UserProfile
+        friendList = (intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>?)!!
+        sentInviteList = (intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>?)!!
+        receivedInviteList = (intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?)!!
 
         //Gan du lieu vao layout
         if (userProfile != null) {
@@ -73,6 +80,9 @@ class ChangeNameActivity : AppCompatActivity() {
             )
             val intent = Intent(this, UserActivity::class.java)
             intent.putExtra("USER_PROFILE", user)
+            intent.putExtra("FRIEND_LIST", friendList)
+            intent.putExtra("SENT_INVITE_LIST", sentInviteList)
+            intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
             startActivity(intent)
         } else {
             Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()

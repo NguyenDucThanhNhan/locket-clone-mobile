@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityChangeEmailVerifyEmailBinding
 import com.myproject.locket_clone.model.ChangeEmailResponse
+import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
 import com.myproject.locket_clone.ui.user.UserActivity
@@ -20,6 +21,9 @@ import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModelFac
 
 class ChangeEmail_VerifyEmailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeEmailVerifyEmailBinding
+    private lateinit var friendList: ArrayList<Friend>
+    private lateinit var sentInviteList: ArrayList<Friend>
+    private lateinit var receivedInviteList: ArrayList<Friend>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeEmailVerifyEmailBinding.inflate(layoutInflater)
@@ -45,6 +49,9 @@ class ChangeEmail_VerifyEmailActivity : AppCompatActivity() {
 
         //Nhan du lieu tu ChangeEmail_VerifyPasswordActivity
         val userProfile: UserProfile? = intent.getSerializableExtra("USER_PROFILE") as? UserProfile
+        friendList = (intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>?)!!
+        sentInviteList = (intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>?)!!
+        receivedInviteList = (intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?)!!
 
         //Sư kien click send code -> gui email len server
         binding.btnSendCode.setOnClickListener {
@@ -170,6 +177,9 @@ class ChangeEmail_VerifyEmailActivity : AppCompatActivity() {
             val user = userProfile.copy(email = newEmail)
             val intent = Intent(this, UserActivity::class.java)
             intent.putExtra("USER_PROFILE", user)
+            intent.putExtra("FRIEND_LIST", friendList)
+            intent.putExtra("SENT_INVITE_LIST", sentInviteList)
+            intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
             startActivity(intent)
         } else {
             Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()

@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.databinding.ActivityUserBinding
+import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
 import com.myproject.locket_clone.ui.change_birthday.ChangeBirthdayActivity
@@ -79,6 +80,9 @@ class UserActivity : AppCompatActivity() {
 
         //Nhan du lieu tu HomeActivity
         userProfile = (intent.getSerializableExtra("USER_PROFILE") as? UserProfile)!!
+        val friendList = intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>?
+        val sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>?
+        val receivedInviteList = intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?
 
         //Gan du lieu vao layout
         if (userProfile != null) {
@@ -90,6 +94,9 @@ class UserActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra("USER_PROFILE", userProfile)
+            intent.putExtra("FRIEND_LIST", friendList)
+            intent.putExtra("SENT_INVITE_LIST", sentInviteList)
+            intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
             startActivity(intent)
         }
 
@@ -97,6 +104,9 @@ class UserActivity : AppCompatActivity() {
         binding.btnEditInfor.setOnClickListener {
             val intent = Intent(this, ChangeNameActivity::class.java)
             intent.putExtra("USER_PROFILE", userProfile)
+            intent.putExtra("FRIEND_LIST", friendList)
+            intent.putExtra("SENT_INVITE_LIST", sentInviteList)
+            intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
             startActivity(intent)
         }
 
@@ -113,6 +123,9 @@ class UserActivity : AppCompatActivity() {
         binding.btnChangeEmailAddress.setOnClickListener {
             val intent = Intent(this, ChangeEmail_VerifyPasswordActivity::class.java)
             intent.putExtra("USER_PROFILE", userProfile)
+            intent.putExtra("FRIEND_LIST", friendList)
+            intent.putExtra("SENT_INVITE_LIST", sentInviteList)
+            intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
             startActivity(intent)
         }
 
@@ -120,6 +133,9 @@ class UserActivity : AppCompatActivity() {
         binding.btnChangeBirthday.setOnClickListener {
             val intent = Intent(this, ChangeBirthdayActivity::class.java)
             intent.putExtra("USER_PROFILE", userProfile)
+            intent.putExtra("FRIEND_LIST", friendList)
+            intent.putExtra("SENT_INVITE_LIST", sentInviteList)
+            intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
             startActivity(intent)
         }
 
