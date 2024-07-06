@@ -8,6 +8,7 @@ import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
+import com.myproject.locket_clone.model.Home
 import com.myproject.locket_clone.model.NameChangeRequest
 import com.myproject.locket_clone.model.NameChangeResponse
 import com.myproject.locket_clone.model.SigninRequest
@@ -18,11 +19,13 @@ import com.myproject.locket_clone.model.UpdateProfileImageResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface APIService {
     //Gui email len server de check xem co phai chinh chu hay khong danh cho tao tai khoan va doi email
@@ -84,5 +87,13 @@ interface APIService {
         @Header("user-id") userId: String,
         @Part image: MultipartBody.Part
     ): Call<UpdateProfileImageResponse>
+
+    //Tim kiem nguoi dung
+    @GET("/search/{searchValue}")
+    fun searchUser(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Path("searchValue") searchValue: String
+    ): Call<Home.SearchResponse>
 
 }

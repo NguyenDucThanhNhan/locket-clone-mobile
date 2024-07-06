@@ -9,6 +9,7 @@ import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
+import com.myproject.locket_clone.model.Home
 import com.myproject.locket_clone.model.NameChangeRequest
 import com.myproject.locket_clone.model.NameChangeResponse
 import com.myproject.locket_clone.model.SigninRequest
@@ -68,6 +69,10 @@ class Repository {
 
     fun updateProfileImage(authorization: String, userId: String, image: MultipartBody.Part): Call<UpdateProfileImageResponse> {
         return RetrofitInstance.api.updateProfileImage(authorization, userId, image)
+    }
+
+    fun searchUser(authorization: String, userId: String, searchValue: String): Call<Home.SearchResponse> {
+        return RetrofitInstance.api.searchUser(authorization, userId, searchValue)
     }
 
 }

@@ -18,7 +18,6 @@ import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 import java.util.regex.Pattern
 
 class UserProfileViewModel(private val repository: Repository) : ViewModel() {
