@@ -1,6 +1,7 @@
 package com.myproject.locket_clone.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SignupResponse(
     val status: Int? = null,
@@ -26,4 +27,4 @@ data class SignupMetadata(
 data class Fullname(
     val firstname: String,
     val lastname: String
-)
+) : Serializable

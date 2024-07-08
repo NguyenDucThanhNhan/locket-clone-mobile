@@ -75,4 +75,8 @@ class Repository {
         return RetrofitInstance.api.searchUser(authorization, userId, searchValue)
     }
 
+    suspend fun sendInvite(authorization: String, userId: String, friendId: String): Home.SendInviteResponse {
+        return RetrofitInstance.api.sendInvite(authorization, userId, Home.FriendIdRequest(friendId))
+    }
+
 }

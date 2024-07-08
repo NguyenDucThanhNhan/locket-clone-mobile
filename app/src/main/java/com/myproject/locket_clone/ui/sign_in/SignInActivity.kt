@@ -96,7 +96,7 @@ class SignInActivity : AppCompatActivity() {
                     sentInviteList.add(friend)
                 }
 
-                for (friendData in metadata.user.sentInviteList) {
+                for (friendData in metadata.user.receivedInviteList) {
                     val id = friendData.id
                     val firstname = friendData.name.firstname
                     val lastname = friendData.name.lastname
@@ -126,12 +126,15 @@ class SignInActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            response.status == 400 -> {
+            response.status == 500 -> {
                 val response_text = when (response.message) {
                     "Data is required" -> "Email or password is invalid"
                     "Email is not registered" -> "Email is not registered"
                     "Password is incorrect" -> "Password is incorrect"
-                    else -> "Uncorrected username or password"
+                    else -> {
+                        Log.d("DEBUG", response.message)
+                        "Uncorrected username or password"
+                    }
                 }
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }

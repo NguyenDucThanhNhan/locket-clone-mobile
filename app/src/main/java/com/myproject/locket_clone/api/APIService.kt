@@ -96,4 +96,11 @@ interface APIService {
         @Path("searchValue") searchValue: String
     ): Call<Home.SearchResponse>
 
+    //Gui loi moi ket ban
+    @POST("account/friend/send-invite")
+    suspend fun sendInvite(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Body body: Home.FriendIdRequest
+    ): Home.SendInviteResponse
 }

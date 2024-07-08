@@ -44,4 +44,23 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
+
+    private val _sendInviteResponse = MutableLiveData<Home.SendInviteResponse>()
+    val sendInviteResponse: LiveData<Home.SendInviteResponse> get() = _sendInviteResponse
+
+    fun sendInvite(authorization: String, userId: String, friendId: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.sendInvite(authorization, userId, friendId)
+                _sendInviteResponse.value = response
+            } catch (e: Exception) {
+                _sendInviteResponse.value = Home.SendInviteResponse(
+                    message = "Error: ${e.message}",
+                    status = 500,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
+    }
 }
