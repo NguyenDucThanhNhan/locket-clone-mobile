@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.LocketClone" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Màu thanh viền -->
+        <item name="colorPrimaryVariant">@color/black</item>
+        <!-- Màu status bar -->
+        <item name="android:statusBarColor">@android:color/black</item>
     </style>
 
     <style name="Theme.LocketClone" parent="Base.Theme.LocketClone" />
+    //Tao bo goc transparent va dieu chinh kich thuoc thong bao
+    <style name="ThemeCustom" parent="Theme.AppCompat.Light.Dialog">
+        //Bo goc
+        <item name="android:windowBackground">@android:color/transparent</item>
+        //Kich thuoc
+        <item name="windowMinWidthMinor">80%</item>
+    </style>
 </resources>

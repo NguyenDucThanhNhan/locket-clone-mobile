@@ -28,7 +28,7 @@
                 app:srcCompat="@drawable/ic_back" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/txt_user_avatar"
+                android:id="@+id/img_user_avatar"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"

@@ -86,7 +86,7 @@ class UserActivity : AppCompatActivity() {
 
         //Gan du lieu vao layout
         if (userProfile != null) {
-            Picasso.get().load(userProfile.profileImageUrl).into(binding.txtUserAvatar)
+            Picasso.get().load(userProfile.profileImageUrl).into(binding.imgUserAvatar)
             binding.txtUserName.text = "${userProfile.lastname} ${userProfile.firstname}"
         }
 
@@ -194,7 +194,7 @@ class UserActivity : AppCompatActivity() {
                             Toast.makeText(this, "Update profile image successfully", Toast.LENGTH_SHORT).show()
                             val metadata = response.metadata
                             userProfile.profileImageUrl = metadata.profileImageUrl
-                            Picasso.get().load(userProfile.profileImageUrl).into(binding.txtUserAvatar)
+                            Picasso.get().load(userProfile.profileImageUrl).into(binding.imgUserAvatar)
                         }
                     },
                     onFailure = { errorMessage ->

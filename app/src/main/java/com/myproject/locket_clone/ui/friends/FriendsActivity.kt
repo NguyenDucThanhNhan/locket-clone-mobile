@@ -5,10 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityFriendsBinding
+import com.myproject.locket_clone.databinding.RemoveFriendDialogBinding
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.Fullname
 import com.myproject.locket_clone.model.Home
@@ -17,12 +20,11 @@ import com.myproject.locket_clone.recycler_view.FriendRequestsAdapter
 import com.myproject.locket_clone.recycler_view.FriendRequestsInterface
 import com.myproject.locket_clone.recycler_view.FriendsListAdapter
 import com.myproject.locket_clone.recycler_view.FriendsListInterface
-import com.myproject.locket_clone.recycler_view.SearchUserAdapter
-import com.myproject.locket_clone.recycler_view.SearchUserInterface
 import com.myproject.locket_clone.repository.Repository
 import com.myproject.locket_clone.ui.home.HomeActivity
 import com.myproject.locket_clone.viewmodel.home.HomeViewModel
 import com.myproject.locket_clone.viewmodel.home.HomeViewModelFactory
+import com.squareup.picasso.Picasso
 
 class FriendsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFriendsBinding
@@ -30,6 +32,8 @@ class FriendsActivity : AppCompatActivity() {
     private lateinit var friendRequestsadapter: FriendRequestsAdapter
     private  var friendList = ArrayList<Friend>()
     private  var receivedInviteList = ArrayList<Friend>()
+    lateinit var removeFrienđialog: AlertDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +63,7 @@ class FriendsActivity : AppCompatActivity() {
         friendsListadapter = FriendsListAdapter(friendList, object: FriendsListInterface{
             override fun OnClickRemoveFriend(position: Int) {
                 if (userProfile != null) {
-                    homeViewModel.removeFriend(userProfile.signInKey, userProfile.userId, friendList[position].id)
+                    showRemoveFriendDialog(userProfile.signInKey, userProfile.userId, friendList[position].name, friendList[position].profileImageUrl, homeViewModel, position)
                 }
             }
         })
@@ -104,6 +108,35 @@ class FriendsActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showRemoveFriendDialog(
+        signInKey: String,
+        userId: String,
+        name: Fullname,
+        image: String,
+        homeViewModel: HomeViewModel,
+        position: Int
+    ) {
+        //Theme o day duoc lay tu values/themes/themes
+        val build = AlertDialog.Builder(this, R.style.ThemeCustom)
+        val dialogBinding = RemoveFriendDialogBinding.inflate(LayoutInflater.from(this))
+        build.setView(dialogBinding.root)
+        Picasso.get().load(image).into(dialogBinding.imgUserAvatar)
+        dialogBinding.txtUserName.text = name.firstname + " " + name.lastname
+        dialogBinding.btnClose.setOnClickListener {
+            removeFrienđialog.dismiss()
+        }
+        dialogBinding.btnCancel.setOnClickListener {
+            removeFrienđialog.dismiss()
+        }
+        dialogBinding.btnOk.setOnClickListener {
+            homeViewModel.removeFriend(signInKey, userId, friendList[position].id)
+            removeFrienđialog.dismiss()
+        }
+        removeFrienđialog = build.create()
+        removeFrienđialog.show()
     }
 
     @SuppressLint("NotifyDataSetChanged")
