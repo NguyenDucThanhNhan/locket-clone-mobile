@@ -126,7 +126,7 @@ class SignInActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-            response.status == 500 -> {
+            response.status == 400 -> {
                 val response_text = when (response.message) {
                     "Data is required" -> "Email or password is invalid"
                     "Email is not registered" -> "Email is not registered"

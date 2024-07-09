@@ -45,7 +45,6 @@ class SearchUserActivity : AppCompatActivity() {
         val receivedInviteList = intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?
 
         list.clear()
-        //Tao danh sach
         adapter = SearchUserAdapter(list, object: SearchUserInterface{
 
             override fun OnClickAddFriend(position: Int) {
@@ -121,7 +120,7 @@ class SearchUserActivity : AppCompatActivity() {
 
             }
 
-            500 -> {
+            400 -> {
                 val responseText = when (response.message) {
                     "Friend id is required" -> "Friend id is required"
                     "Friend is not existing" -> "Friend is not existing"

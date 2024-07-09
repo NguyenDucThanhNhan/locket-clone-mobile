@@ -22,7 +22,7 @@ class CreateAccountViewModel(private val repository: Repository) : ViewModel() {
                 _emailValidationResponse.value = response
             } catch (e: Exception) {
                 _emailValidationResponse.value = EmailValidationResponse(
-                    status = 500,
+                    status = 400,
                     message = "Error: ${e.message}"
                 )
             }
@@ -68,7 +68,7 @@ class CreateAccountViewModel(private val repository: Repository) : ViewModel() {
                 _signupResponse.value = response
             } catch (e: Exception) {
                 _signupResponse.value = SignupResponse(
-                    status = 500,
+                    status = 400,
                     message = "Error: ${e.message}"
                 )
             }

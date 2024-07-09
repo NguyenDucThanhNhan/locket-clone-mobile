@@ -23,7 +23,7 @@ class SignInViewModel(private val repository: Repository) : ViewModel() {
                 _signinResponse.value = response
             } catch (e: Exception) {
                 _signinResponse.value = SigninResponse(
-                    status = 500,
+                    status = 400,
                     message = "Error: ${e.message}"
                 )
             }
@@ -40,7 +40,7 @@ class SignInViewModel(private val repository: Repository) : ViewModel() {
                 _emailValidationResponse.value = response
             } catch (e: Exception) {
                 _emailValidationResponse.value = EmailValidationResponse(
-                    status = 500,
+                    status = 400,
                     message = "Error: ${e.message}"
                 )
             }
@@ -57,7 +57,7 @@ class SignInViewModel(private val repository: Repository) : ViewModel() {
                 _changePasswordResponse.value = response
             } catch (e: Exception) {
                 _changePasswordResponse.value = ChangePasswordResponse(
-                    status = 500,
+                    status = 400,
                     message = "Error: ${e.message}"
                 )
             }

@@ -56,7 +56,67 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             } catch (e: Exception) {
                 _sendInviteResponse.value = Home.SendInviteResponse(
                     message = "Error: ${e.message}",
-                    status = 500,
+                    status = 400,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
+    }
+
+    private val _acceptInviteResponse = MutableLiveData<Home.AcceptInviteResponse>()
+    val acceptInviteResponse: LiveData<Home.AcceptInviteResponse> get() = _acceptInviteResponse
+
+    fun acceptInvite(authorization: String, userId: String, friendId: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.acceptInvite(authorization, userId, friendId)
+                _acceptInviteResponse.value = response
+            } catch (e: Exception) {
+                // Xử lý lỗi
+                _acceptInviteResponse.value = Home.AcceptInviteResponse(
+                    message = "Error: ${e.message}",
+                    status = 400,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
+    }
+
+    private val _removeFriendResponse = MutableLiveData<Home.RemoveFriendResponse>()
+    val removeFriendResponse: LiveData<Home.RemoveFriendResponse> get() = _removeFriendResponse
+
+    fun removeFriend(authorization: String, userId: String, friendId: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.removeFriend(authorization, userId, friendId)
+                _removeFriendResponse.value = response
+            } catch (e: Exception) {
+                // Xử lý lỗi
+                _removeFriendResponse.value = Home.RemoveFriendResponse(
+                    message = "Error: ${e.message}",
+                    status = 400,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
+    }
+
+    private val _userInfoResponse = MutableLiveData<Home.UserInfoResponse>()
+    val userInfoResponse: LiveData<Home.UserInfoResponse> get() = _userInfoResponse
+
+    fun getUserInfo(authorization: String, userId: String, targetUserId: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getUserInfo(authorization, userId, targetUserId)
+                _userInfoResponse.value = response
+            } catch (e: Exception) {
+                // Xử lý lỗi
+                _userInfoResponse.value = Home.UserInfoResponse(
+                    message = "Error: ${e.message}",
+                    status = 400,
                     reasonPhrase = e.message,
                     metadata = null
                 )

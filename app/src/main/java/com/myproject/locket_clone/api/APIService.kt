@@ -103,4 +103,29 @@ interface APIService {
         @Header("user-id") userId: String,
         @Body body: Home.FriendIdRequest
     ): Home.SendInviteResponse
+
+
+    //Chap nhan loi moi ket ban
+    @POST("account/friend/accept")
+    suspend fun acceptInvite(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Body body: Home.FriendIdRequest
+    ): Home.AcceptInviteResponse
+
+    //Xoa ban
+    @POST("account/friend/remove")
+    suspend fun removeFriend(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Body body: Home.FriendIdRequest
+    ): Home.RemoveFriendResponse
+
+    //Lay thong tin cua user
+    @GET("search/user/{userId}")
+    suspend fun getUserInfo(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Path("userId") targetUserId: String
+    ): Home.UserInfoResponse
 }

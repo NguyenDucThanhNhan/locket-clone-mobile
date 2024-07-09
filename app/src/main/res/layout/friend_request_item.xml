@@ -46,14 +46,24 @@
         </androidx.cardview.widget.CardView>
 
         <ImageButton
-            android:id="@+id/btn_add_friend"
-            android:layout_width="50dp"
+            android:id="@+id/btn_accept_friend"
+            android:layout_width="30dp"
             android:layout_height="50dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="7dp"
             android:layout_marginTop="20dp"
             android:scaleType="centerCrop"
             android:background="@drawable/btn_yellow_button"
-            app:srcCompat="@drawable/ic_plus" />
+            app:srcCompat="@drawable/ic_accept" />
+
+        <ImageButton
+            android:id="@+id/btn_remove_invite"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/btn_yellow_button"
+            app:srcCompat="@drawable/ic_remove_friend" />
     </LinearLayout>
 
 </LinearLayout>

@@ -79,4 +79,18 @@ class Repository {
         return RetrofitInstance.api.sendInvite(authorization, userId, Home.FriendIdRequest(friendId))
     }
 
+    suspend fun acceptInvite(authorization: String, userId: String, friendId: String): Home.AcceptInviteResponse {
+        return RetrofitInstance.api.acceptInvite(authorization, userId,
+            Home.FriendIdRequest(friendId)
+        )
+    }
+
+    suspend fun removeFriend(authorization: String, userId: String, friendId: String): Home.RemoveFriendResponse {
+        return RetrofitInstance.api.removeFriend(authorization, userId, Home.FriendIdRequest(friendId))
+    }
+
+    suspend fun getUserInfo(authorization: String, userId: String, targetUserId: String): Home.UserInfoResponse {
+        return RetrofitInstance.api.getUserInfo(authorization, userId, targetUserId)
+    }
+
 }

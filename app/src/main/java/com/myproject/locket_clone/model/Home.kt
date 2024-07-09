@@ -39,4 +39,56 @@ class Home {
         val __v: Int,
         val friendList: List<Friend>
     )
+
+    data class AcceptInviteResponse(
+        val message: String,
+        val status: Int,
+        val reasonPhrase: String?,
+        val metadata: FriendMetadata?
+    )
+
+    data class FriendMetadata(
+        val fullname: Fullname,
+        val _id: String,
+        val email: String,
+        val password: String,
+        val birthday: String,
+        val profileImageUrl: String,
+        val friends: List<Friend>,
+        val createdAt: String,
+        val updatedAt: String,
+        val __v: Int,
+        val friendList: List<Friend>,
+        val receivedInviteList: List<Friend>,
+        val sentInviteList: List<Friend>
+    )
+
+    data class RemoveFriendResponse(
+        val message: String,
+        val status: Int,
+        val reasonPhrase: String?,
+        val metadata: FriendMetadata?
+    )
+
+    data class UserInfoResponse(
+        val message: String,
+        val status: Int,
+        val reasonPhrase: String?,
+        val metadata: UserInfoMetadata?
+    )
+
+    data class UserInfoMetadata(
+        val _id: String,
+        val email: String,
+        val password: String? = null, // Password có thể không được trả về khi lấy thông tin người khác
+        val fullname: Fullname,
+        val birthday: String,
+        val profileImageUrl: String,
+        val createdAt: String? = null,
+        val updatedAt: String? = null,
+        val __v: Int? = null,
+        val friendList: List<Friend>? = null,
+        val receivedInviteList: List<Friend>? = null,
+        val sentInviteList: List<Friend>? = null
+    )
 }
