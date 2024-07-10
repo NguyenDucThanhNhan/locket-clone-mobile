@@ -76,9 +76,17 @@ class FriendsActivity : AppCompatActivity() {
 
 
         friendRequestsadapter = FriendRequestsAdapter(receivedInviteList, object: FriendRequestsInterface{
-            override fun OnClickAcceptFriend(position: Int) {
+            //Click nut accept
+            override fun OnClickAcceptFriendInvite(position: Int) {
                 if (userProfile != null) {
                     homeViewModel.acceptInvite(userProfile.signInKey, userProfile.userId, receivedInviteList[position].id)
+                }
+            }
+
+            //Click nut remove
+            override fun OnClickRemoveFriendInvite(position: Int) {
+                if (userProfile != null) {
+                    homeViewModel.removeInvite(userProfile.signInKey, userProfile.userId, receivedInviteList[position].id)
                 }
             }
         })
@@ -89,12 +97,17 @@ class FriendsActivity : AppCompatActivity() {
             LinearLayoutManager.VERTICAL,
             false)
 
-        // Lang nghe ket qua tra ve cua accept
+        // Lang nghe ket qua tra ve cua accept invite
         homeViewModel.acceptInviteResponse.observe(this) { response ->
             handleAcceptInviteResponse(response)
         }
 
-        // Lang nghe ket qua tra ve cua remove
+        // Lang nghe ket qua tra ve cua remove invite
+        homeViewModel.removeInviteResponse.observe(this) { response ->
+            handleRemoveInviteResponse(response)
+        }
+
+        // Lang nghe ket qua tra ve cua remove friend
         homeViewModel.removeFriendResponse.observe(this) { response ->
             handleRemoveFriendResponse(response)
         }
@@ -137,6 +150,38 @@ class FriendsActivity : AppCompatActivity() {
         }
         removeFrienđialog = build.create()
         removeFrienđialog.show()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun handleRemoveInviteResponse(response: Home.RemoveInviteResponse) {
+        when (response.status) {
+            200 -> {
+                val metadata = response.metadata ?: return
+                // Xử lý metadata
+                Log.d("RemoveInvite", "Thông tin người dùng: ${metadata.fullname.firstname} ${metadata.fullname.lastname}")
+                // Cap nhat received list
+                receivedInviteList.clear()
+                for (friendData in metadata.receivedInviteList) {
+                    val id = friendData.id
+                    val firstname = friendData.name.firstname
+                    val lastname = friendData.name.lastname
+                    val profileImageUrl = friendData.profileImageUrl
+
+                    val friend = Friend(id, Fullname(firstname, lastname), profileImageUrl)
+                    receivedInviteList.add(friend)
+                }
+
+                friendRequestsadapter.notifyDataSetChanged()
+            }
+            400 -> {
+                // Xử lý các trạng thái lỗi khác
+                Log.e("RemoveInvite", "Lỗi khi xóa lời mời: ${response.message}")
+            }
+            else -> {
+                // Xử lý lỗi không xác định
+                Log.e("RemoveInvite", "Lỗi không xác định: ${response.message}")
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

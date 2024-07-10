@@ -128,4 +128,12 @@ interface APIService {
         @Header("user-id") userId: String,
         @Path("userId") targetUserId: String
     ): Home.UserInfoResponse
+
+    //Xoa loi moi ket ban
+    @POST("account/friend/remove-invite")
+    suspend fun removeInvite(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Body removeInviteRequest: Home.RemoveInviteRequest
+    ): Home.RemoveInviteResponse
 }

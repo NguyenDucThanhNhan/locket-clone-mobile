@@ -47,6 +47,17 @@ class Home {
         val metadata: FriendMetadata?
     )
 
+    data class RemoveInviteRequest(
+        val friendId: String
+    )
+
+    data class RemoveInviteResponse(
+        val message: String,
+        val status: Int,
+        val reasonPhrase: String?,
+        val metadata: FriendMetadata?
+    )
+
     data class FriendMetadata(
         val fullname: Fullname,
         val _id: String,
@@ -80,7 +91,7 @@ class Home {
     data class UserInfoMetadata(
         val _id: String,
         val email: String,
-        val password: String? = null, // Password có thể không được trả về khi lấy thông tin người khác
+        val password: String? = null,
         val fullname: Fullname,
         val birthday: String,
         val profileImageUrl: String,

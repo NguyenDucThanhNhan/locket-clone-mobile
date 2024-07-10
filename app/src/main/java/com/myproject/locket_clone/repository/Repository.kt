@@ -93,4 +93,8 @@ class Repository {
         return RetrofitInstance.api.getUserInfo(authorization, userId, targetUserId)
     }
 
+    suspend fun removeInvite(authorization: String, userId: String, friendId: String): Home.RemoveInviteResponse {
+        return RetrofitInstance.api.removeInvite(authorization, userId, Home.RemoveInviteRequest(friendId))
+    }
+
 }

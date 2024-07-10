@@ -123,4 +123,24 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             }
         }
     }
+
+    private val _removeInviteResponse = MutableLiveData<Home.RemoveInviteResponse>()
+    val removeInviteResponse: LiveData<Home.RemoveInviteResponse> get() = _removeInviteResponse
+
+    fun removeInvite(authorization: String, userId: String, friendId: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.removeInvite(authorization, userId, friendId)
+                _removeInviteResponse.value = response
+            } catch (e: Exception) {
+                // Xử lý lỗi
+                _removeInviteResponse.value = Home.RemoveInviteResponse(
+                    message = "Error: ${e.message}",
+                    status = 400,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
+    }
 }

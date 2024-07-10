@@ -24,9 +24,14 @@ class FriendRequestsAdapter(var list: ArrayList<Friend>, val onAddFriend: Friend
             txtUserName.text = currentItem.name.firstname + " " + currentItem.name.lastname
             Picasso.get().load(currentItem.profileImageUrl).into(imgUserAvatar)
 
-            // Lang nghe click nut add
+            // Lang nghe click nut accept
             btnAcceptFriend.setOnClickListener {
-                onAddFriend.OnClickAcceptFriend(position)
+                onAddFriend.OnClickAcceptFriendInvite(position)
+            }
+
+            // Lang nghe click nut remove
+            btnRemoveInvite.setOnClickListener {
+                onAddFriend.OnClickRemoveFriendInvite(position)
             }
         }
     }
