@@ -6,12 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import com.myproject.locket_clone.model.Home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myproject.locket_clone.model.CreateFeedResponse
 import com.myproject.locket_clone.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class HomeViewModel(private val repository: Repository) : ViewModel() {
     private val _searchResponse = MutableLiveData<Home.SearchResponse>()
@@ -135,6 +140,28 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
             } catch (e: Exception) {
                 // Xử lý lỗi
                 _removeInviteResponse.value = Home.RemoveInviteResponse(
+                    message = "Error: ${e.message}",
+                    status = 400,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
+    }
+
+    private val _createFeedResponse = MutableLiveData<CreateFeedResponse>()
+    val createFeedResponse: LiveData<CreateFeedResponse> get() = _createFeedResponse
+
+    fun createFeed(authorization: String, userId: String, description: String, visibility: String, imageFile: File) {
+        val imageRequestBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, imageRequestBody)
+
+        viewModelScope.launch {
+            try {
+                val response = repository.createFeed(authorization, userId, description, visibility, imagePart)
+                _createFeedResponse.value = response
+            } catch (e: Exception) {
+                _createFeedResponse.value = CreateFeedResponse(
                     message = "Error: ${e.message}",
                     status = 400,
                     reasonPhrase = e.message,

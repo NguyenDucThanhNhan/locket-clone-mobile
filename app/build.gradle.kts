@@ -65,6 +65,15 @@ dependencies {
     implementation("com.soundcloud.android:android-crop:1.0.1@aar")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    //CameraX
+    val cameraxVersion = "1.3.4"
+    implementation("androidx.camera:camera-core:${cameraxVersion}")
+    implementation ("androidx.camera:camera-camera2:${cameraxVersion}")
+    implementation ("androidx.camera:camera-lifecycle:${cameraxVersion}")
+    implementation ("androidx.camera:camera-video:${cameraxVersion}")
+    implementation ("androidx.camera:camera-view:${cameraxVersion}")
+    implementation ("androidx.camera:camera-extensions:${cameraxVersion}")
+
     //Picasso
     implementation("com.squareup.picasso:picasso:2.71828")
 

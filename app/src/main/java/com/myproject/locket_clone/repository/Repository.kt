@@ -7,6 +7,7 @@ import com.myproject.locket_clone.model.BirthdayChangeResponse
 import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
+import com.myproject.locket_clone.model.CreateFeedResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
 import com.myproject.locket_clone.model.Home
@@ -17,8 +18,10 @@ import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
 import com.myproject.locket_clone.model.SignupResponse
 import com.myproject.locket_clone.model.UpdateProfileImageResponse
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.HttpException
 import java.io.File
@@ -95,6 +98,12 @@ class Repository {
 
     suspend fun removeInvite(authorization: String, userId: String, friendId: String): Home.RemoveInviteResponse {
         return RetrofitInstance.api.removeInvite(authorization, userId, Home.RemoveInviteRequest(friendId))
+    }
+
+    suspend fun createFeed(authorization: String, userId: String, description: String, visibility: String, image: MultipartBody.Part): CreateFeedResponse {
+        val descriptionPart = description.toRequestBody("text/plain".toMediaTypeOrNull())
+        val visibilityPart = visibility.toRequestBody("text/plain".toMediaTypeOrNull())
+        return RetrofitInstance.api.createFeed(authorization, userId, descriptionPart, visibilityPart, image)
     }
 
 }

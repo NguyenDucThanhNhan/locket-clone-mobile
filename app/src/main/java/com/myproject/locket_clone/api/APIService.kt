@@ -6,6 +6,7 @@ import com.myproject.locket_clone.model.BirthdayChangeResponse
 import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
+import com.myproject.locket_clone.model.CreateFeedResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
 import com.myproject.locket_clone.model.Home
@@ -17,6 +18,7 @@ import com.myproject.locket_clone.model.SignupRequest
 import com.myproject.locket_clone.model.SignupResponse
 import com.myproject.locket_clone.model.UpdateProfileImageResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -136,4 +138,15 @@ interface APIService {
         @Header("user-id") userId: String,
         @Body removeInviteRequest: Home.RemoveInviteRequest
     ): Home.RemoveInviteResponse
+
+    //Dang bai
+    @Multipart
+    @POST("feed/create")
+    suspend fun createFeed(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Part("description") description: RequestBody,
+        @Part("visibility") visibility: RequestBody,
+        @Part image: MultipartBody.Part
+    ): CreateFeedResponse
 }
