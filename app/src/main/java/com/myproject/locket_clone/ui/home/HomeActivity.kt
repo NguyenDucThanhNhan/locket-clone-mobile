@@ -18,19 +18,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityHomeBinding
-import com.myproject.locket_clone.model.CreateFeedResponse
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
+import com.myproject.locket_clone.ui.create_feed.CreateFeedActivity
 import com.myproject.locket_clone.ui.friends.FriendsActivity
 import com.myproject.locket_clone.ui.search_user.SearchUserActivity
-import com.myproject.locket_clone.ui.sign_in.SignInActivity
 import com.myproject.locket_clone.ui.user.UserActivity
 import com.myproject.locket_clone.viewmodel.home.HomeViewModel
 import com.myproject.locket_clone.viewmodel.home.HomeViewModelFactory
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -42,25 +38,31 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var userProfile: UserProfile
+    private var friendList: ArrayList<Friend> = ArrayList()
+    private var receivedInviteList: ArrayList<Friend> = ArrayList()
+    private var sentInviteList: ArrayList<Friend> = ArrayList()
+    private var isBackCamera = true
+    private lateinit var cameraProvider: ProcessCameraProvider
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Khoi tao ban dau
+        //Khởi tạo ban đầu
         val repository by lazy { Repository() }
         val viewModelFactory by lazy { HomeViewModelFactory(repository) }
         homeViewModel = ViewModelProvider(this, viewModelFactory).get(
             HomeViewModel::class.java)
 
-        //Nhan du lieu tu SignInActivity
+        //Nhận dữ liệu từ SignInActivity
         userProfile = (intent.getSerializableExtra("USER_PROFILE") as? UserProfile)!!
-        val friendList = intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>?
-        val sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>?
-        val receivedInviteList = intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?
+        friendList = (intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>?)!!
+        sentInviteList = (intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>?)!!
+        receivedInviteList = (intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?)!!
 
-        //Gan du lieu vao layout
+        //Gán dữ liệu vào layout
         if (friendList != null) {
             if (friendList.size != 1) {
                 binding.btnFriends.text = "${friendList.size} Friends"
@@ -69,7 +71,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        //Kiem tra quyen truy cap
+        //Kiểm tra quyền truy cập
         if (allPermissionsGranted()) {
             startCamera()
         } else {
@@ -109,57 +111,47 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.btnTakePicture.setOnClickListener { takePhoto() }
+        binding.btnSwitchCamera.setOnClickListener { switchCamera() }
 
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
-
-        // Lang nghe ket qua tra ve tu server sau khi tao bai viet
-        homeViewModel.createFeedResponse.observe(this) { response ->
-            handleCreateFeedResponse(response)
-        }
-    }
-
-    private fun handleCreateFeedResponse(response: CreateFeedResponse) {
-        when (response.status) {
-            201 -> {
-                val metadata = response.metadata ?: return
-                // Xử lý metadata
-                Log.d("CreateFeed", "Feed được tạo thành công: ${metadata.description}")
-            }
-            400 -> {
-                // Xử lý các trạng thái lỗi khác
-                Log.e("CreateFeed", "Lỗi khi tạo feed: ${response.message}")
-            }
-            else -> {
-                // Xử lý lỗi không xác định
-                Log.e("CreateFeed", "Lỗi không xác định: ${response.message}")
-            }
-        }
     }
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder().build().also {
-                it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-            }
-
-            imageCapture = ImageCapture.Builder().build()
-
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            try {
-                cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture
-                )
-            } catch (exc: Exception) {
-                Log.e("DEBUG", "Use case binding failed", exc)
-            }
-
+            cameraProvider = cameraProviderFuture.get()
+            bindCameraUseCases()
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun bindCameraUseCases() {
+        val preview = Preview.Builder().build().also {
+            it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+        }
+
+        imageCapture = ImageCapture.Builder().build()
+
+        val cameraSelector = if (isBackCamera) {
+            CameraSelector.DEFAULT_BACK_CAMERA
+        } else {
+            CameraSelector.DEFAULT_FRONT_CAMERA
+        }
+
+        try {
+            cameraProvider.unbindAll()
+            cameraProvider.bindToLifecycle(
+                this, cameraSelector, preview, imageCapture
+            )
+        } catch (exc: Exception) {
+            Log.e(TAG, "Use case binding failed", exc)
+        }
+    }
+
+    private fun switchCamera() {
+        isBackCamera = !isBackCamera
+        bindCameraUseCases()
     }
 
     private fun takePhoto() {
@@ -180,19 +172,16 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    uploadPhoto(photoFile)
+                    val intent = Intent(this@HomeActivity, CreateFeedActivity::class.java).apply {
+                        putExtra("USER_PROFILE", userProfile)
+                        putExtra("FRIEND_LIST", friendList)
+                        putExtra("SENT_INVITE_LIST", sentInviteList)
+                        putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
+                        putExtra("IMAGE_PATH", photoFile.absolutePath)
+                    }
+                    startActivity(intent)
                 }
             }
-        )
-    }
-
-    private fun uploadPhoto(photoFile: File) {
-        homeViewModel.createFeed(
-            authorization = userProfile.signInKey,
-            userId = userProfile.userId,
-            description = "This is my photo",
-            visibility = "667bdce171b6ecf805a177a8",
-            imageFile = photoFile
         )
     }
 
