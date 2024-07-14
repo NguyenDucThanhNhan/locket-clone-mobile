@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -113,24 +114,26 @@ class ChooseEmailActivity : AppCompatActivity() {
             val responseText: String
             var checkStatus = false
 
-            when {
-                response.status == 400 -> {
+            when (response.status) {
+                400 -> {
                     responseText = when (response.message) {
                         "Email is registered" -> {
                             checkStatus = false
                             "Email is registered"
                         }
+
                         "Email is invalid" -> {
                             checkStatus = false
                             "Email is invalid"
                         }
+
                         else -> {
                             checkStatus = false
                             "Forbidden: ${response.message}"
                         }
                     }
                 }
-                response.status == 200 -> {
+                200 -> {
                     trueCode = response.metadata?.code.toString()
                     checkStatus = true
                     responseText = "Sent code successfully!"
@@ -141,9 +144,7 @@ class ChooseEmailActivity : AppCompatActivity() {
                 }
             }
 
-            if (!checkStatus) {
-                Toast.makeText(this, responseText, Toast.LENGTH_SHORT).show()
-            }
+            Log.d("DEBUG", responseText)
         })
 
     }

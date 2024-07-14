@@ -1,5 +1,7 @@
 package com.myproject.locket_clone.model
 
+import java.io.Serializable
+
 data class CreateFeedResponse(
     val message: String,
     val status: Int,
@@ -33,3 +35,10 @@ data class ReactionStatistic(
     val sad: Int,
     val wow: Int
 )
+
+data class Visibility(
+    val id: String,
+    val name: Fullname,
+    val profileImageUrl: String,
+    var isClick: Boolean
+) : Serializable
