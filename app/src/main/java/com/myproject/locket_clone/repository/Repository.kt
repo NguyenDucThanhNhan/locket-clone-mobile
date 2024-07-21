@@ -10,6 +10,7 @@ import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.CreateFeedResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
+import com.myproject.locket_clone.model.GetCertainFeedsResponse
 import com.myproject.locket_clone.model.Home
 import com.myproject.locket_clone.model.NameChangeRequest
 import com.myproject.locket_clone.model.NameChangeResponse
@@ -104,6 +105,10 @@ class Repository {
         val descriptionPart = description.toRequestBody("text/plain".toMediaTypeOrNull())
         val visibilityPart = visibility.toRequestBody("text/plain".toMediaTypeOrNull())
         return RetrofitInstance.api.createFeed(authorization, userId, descriptionPart, visibilityPart, image)
+    }
+
+    suspend fun getCertainFeeds(authorization: String, userId: String, searchId: String, page: Int): GetCertainFeedsResponse {
+        return RetrofitInstance.api.getCertainFeeds(authorization, userId, searchId, page)
     }
 
 }

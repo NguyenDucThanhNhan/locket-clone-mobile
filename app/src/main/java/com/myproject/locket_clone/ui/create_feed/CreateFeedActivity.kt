@@ -71,7 +71,7 @@ class CreateFeedActivity : AppCompatActivity() {
 
         //Load visibility
         visibilityAdapter = VisibilityFriendsAdapter(visibilityList, object: VisibilityFriendsInterface {
-            override fun OnClickVisibility(position: Int) {
+            override fun onClickVisibility(position: Int) {
                 //Check va them visibility vao
                 if (!visibilityList[position].isClick) {
                     if (visibility == "everyone" || visibility == "") {

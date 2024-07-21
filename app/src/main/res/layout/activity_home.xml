@@ -104,7 +104,7 @@
         android:text="History" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/btnHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"

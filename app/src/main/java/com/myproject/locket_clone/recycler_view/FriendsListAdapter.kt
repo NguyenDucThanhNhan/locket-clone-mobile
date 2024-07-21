@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.myproject.locket_clone.databinding.FriendListItemBinding
 import com.myproject.locket_clone.model.Friend
-import com.myproject.locket_clone.model.SearchUser
 import com.squareup.picasso.Picasso
 
 class FriendsListAdapter(var list: ArrayList<Friend>, val onRemoveFriend: FriendsListInterface): RecyclerView.Adapter<FriendsListAdapter.FriendsListViewHolder>() {
@@ -27,7 +26,7 @@ class FriendsListAdapter(var list: ArrayList<Friend>, val onRemoveFriend: Friend
 
             // Lang nghe click nut remove
             btnRemoveFriend.setOnClickListener {
-                onRemoveFriend.OnClickRemoveFriend(position)
+                onRemoveFriend.onClickRemoveFriend(position)
             }
         }
     }

@@ -26,7 +26,7 @@ class SearchUserAdapter(var list: List<SearchUser>, val onAddFriend: SearchUserI
 
             // Lang nghe click nut add
             btnAddFriend.setOnClickListener {
-                onAddFriend.OnClickAddFriend(position)
+                onAddFriend.onClickAddFriend(position)
             }
         }
     }

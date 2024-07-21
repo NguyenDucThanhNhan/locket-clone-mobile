@@ -26,12 +26,12 @@ class FriendRequestsAdapter(var list: ArrayList<Friend>, val onAddFriend: Friend
 
             // Lang nghe click nut accept
             btnAcceptFriend.setOnClickListener {
-                onAddFriend.OnClickAcceptFriendInvite(position)
+                onAddFriend.onClickAcceptFriendInvite(position)
             }
 
             // Lang nghe click nut remove
             btnRemoveInvite.setOnClickListener {
-                onAddFriend.OnClickRemoveFriendInvite(position)
+                onAddFriend.onClickRemoveFriendInvite(position)
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.myproject.locket_clone.recycler_view
 
 interface FriendRequestsInterface {
-    fun OnClickAcceptFriendInvite(position: Int)
-    fun OnClickRemoveFriendInvite(position: Int)
+    fun onClickAcceptFriendInvite(position: Int)
+    fun onClickRemoveFriendInvite(position: Int)
 }

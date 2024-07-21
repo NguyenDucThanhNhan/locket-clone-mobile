@@ -61,7 +61,7 @@ class FriendsActivity : AppCompatActivity() {
         }
 
         friendsListadapter = FriendsListAdapter(friendList, object: FriendsListInterface{
-            override fun OnClickRemoveFriend(position: Int) {
+            override fun onClickRemoveFriend(position: Int) {
                 if (userProfile != null) {
                     showRemoveFriendDialog(userProfile.signInKey, userProfile.userId, friendList[position].name, friendList[position].profileImageUrl, homeViewModel, position)
                 }
@@ -77,14 +77,14 @@ class FriendsActivity : AppCompatActivity() {
 
         friendRequestsadapter = FriendRequestsAdapter(receivedInviteList, object: FriendRequestsInterface{
             //Click nut accept
-            override fun OnClickAcceptFriendInvite(position: Int) {
+            override fun onClickAcceptFriendInvite(position: Int) {
                 if (userProfile != null) {
                     homeViewModel.acceptInvite(userProfile.signInKey, userProfile.userId, receivedInviteList[position].id)
                 }
             }
 
             //Click nut remove
-            override fun OnClickRemoveFriendInvite(position: Int) {
+            override fun onClickRemoveFriendInvite(position: Int) {
                 if (userProfile != null) {
                     homeViewModel.removeInvite(userProfile.signInKey, userProfile.userId, receivedInviteList[position].id)
                 }

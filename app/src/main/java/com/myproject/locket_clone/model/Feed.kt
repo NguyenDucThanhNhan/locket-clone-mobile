@@ -13,7 +13,7 @@ data class FeedMetadata(
     val userId: String,
     val description: String,
     val imageUrl: String,
-    val visibility: List<String>,
+    val visibility: Any,
     val _id: String,
     val reactions: List<Reaction>,
     val reactionStatistic: ReactionStatistic,
@@ -24,7 +24,9 @@ data class FeedMetadata(
 
 data class Reaction(
     val userId: String,
-    val type: String
+    val fullname: Fullname,
+    val profileImageUrl: String,
+    val icon: String
 )
 
 data class ReactionStatistic(
@@ -42,3 +44,24 @@ data class Visibility(
     val profileImageUrl: String,
     var isClick: Boolean
 ) : Serializable
+
+data class GetCertainFeedsResponse(
+    val message: String,
+    val status: Int,
+    val reasonPhrase: String?,
+    val metadata: List<FeedMetadata>?
+)
+
+data class Feed(
+    val userId: String,
+    val description: String,
+    val imageUrl: String,
+    val visibility: Any,
+    val _id: String,
+    val reactions: List<Reaction>,
+    val reactionStatistic: ReactionStatistic,
+    val createdAt: String,
+    val updatedAt: String,
+    val __v: Int,
+    val name: String
+)

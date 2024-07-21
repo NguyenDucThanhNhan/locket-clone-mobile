@@ -9,6 +9,7 @@ import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.CreateFeedResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
+import com.myproject.locket_clone.model.GetCertainFeedsResponse
 import com.myproject.locket_clone.model.Home
 import com.myproject.locket_clone.model.NameChangeRequest
 import com.myproject.locket_clone.model.NameChangeResponse
@@ -28,6 +29,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface APIService {
     //Gui email len server de check xem co phai chinh chu hay khong danh cho tao tai khoan va doi email
@@ -149,4 +151,13 @@ interface APIService {
         @Part("visibility") visibility: RequestBody,
         @Part image: MultipartBody.Part
     ): CreateFeedResponse
+
+    //Lay cac bai dang de hien thi cho user
+    @GET("feed/certain/{searchId}")
+    suspend fun getCertainFeeds(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Path("searchId") searchId: String,
+        @Query("page") page: Int
+    ): GetCertainFeedsResponse
 }

@@ -47,7 +47,7 @@ class SearchUserActivity : AppCompatActivity() {
         list.clear()
         adapter = SearchUserAdapter(list, object: SearchUserInterface{
 
-            override fun OnClickAddFriend(position: Int) {
+            override fun onClickAddFriend(position: Int) {
                 if (userProfile != null) {
                     homeViewModel.sendInvite(userProfile.signInKey, userProfile.userId, list[position].id)
                 }

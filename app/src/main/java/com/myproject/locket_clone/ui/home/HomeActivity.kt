@@ -22,6 +22,7 @@ import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
 import com.myproject.locket_clone.ui.create_feed.CreateFeedActivity
+import com.myproject.locket_clone.ui.feed.FeedActivity
 import com.myproject.locket_clone.ui.friends.FriendsActivity
 import com.myproject.locket_clone.ui.search_user.SearchUserActivity
 import com.myproject.locket_clone.ui.user.UserActivity
@@ -112,6 +113,15 @@ class HomeActivity : AppCompatActivity() {
 
         binding.btnTakePicture.setOnClickListener { takePhoto() }
         binding.btnSwitchCamera.setOnClickListener { switchCamera() }
+        binding.btnHistory.setOnClickListener {
+            val intent = Intent(this, FeedActivity::class.java).apply {
+                putExtra("USER_PROFILE", userProfile)
+                putExtra("FRIEND_LIST", friendList)
+                putExtra("SENT_INVITE_LIST", sentInviteList)
+                putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
+            }
+            startActivity(intent)
+        }
 
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()

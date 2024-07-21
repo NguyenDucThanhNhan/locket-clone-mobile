@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myproject.locket_clone.databinding.VisibilityFriendItemBinding
 import com.myproject.locket_clone.model.Visibility
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 
 class VisibilityFriendsAdapter(var list: ArrayList<Visibility>, val onAddVisibility: VisibilityFriendsInterface): RecyclerView.Adapter<VisibilityFriendsAdapter.VisibilityFriendsViewHolder>() {
     inner class VisibilityFriendsViewHolder(val binding: VisibilityFriendItemBinding): RecyclerView.ViewHolder(binding.root)
@@ -35,7 +34,7 @@ class VisibilityFriendsAdapter(var list: ArrayList<Visibility>, val onAddVisibil
             }
             //Lang nghe item click chon
             holder.itemView.setOnClickListener {
-                onAddVisibility.OnClickVisibility(position)
+                onAddVisibility.onClickVisibility(position)
                 //Doi mau khung vien
 //                if (!list[position].isClick) {
 //                    imgUserAvatar.borderColor = Color.parseColor("#E3A400")
