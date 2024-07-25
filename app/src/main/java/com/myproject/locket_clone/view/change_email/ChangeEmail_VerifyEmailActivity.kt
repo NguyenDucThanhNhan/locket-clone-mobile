@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.change_email
+package com.myproject.locket_clone.view.change_email
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +15,7 @@ import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.user.UserActivity
+import com.myproject.locket_clone.view.user.UserActivity
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModel
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModelFactory
 

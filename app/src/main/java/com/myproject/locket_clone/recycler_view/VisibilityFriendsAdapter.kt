@@ -35,14 +35,6 @@ class VisibilityFriendsAdapter(var list: ArrayList<Visibility>, val onAddVisibil
             //Lang nghe item click chon
             holder.itemView.setOnClickListener {
                 onAddVisibility.onClickVisibility(position)
-                //Doi mau khung vien
-//                if (!list[position].isClick) {
-//                    imgUserAvatar.borderColor = Color.parseColor("#E3A400")
-//                    list[position].isClick = true
-//                } else {
-//                    imgUserAvatar.borderColor = Color.parseColor("#595959")
-//                    list[position].isClick = false
-//                }
             }
         }
     }

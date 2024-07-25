@@ -2,19 +2,23 @@ package com.myproject.locket_clone.recycler_view
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.myproject.locket_clone.databinding.FeedItemBinding
 import com.myproject.locket_clone.model.Feed
 import com.myproject.locket_clone.model.FeedMetadata
+import com.myproject.locket_clone.model.Friend
 import com.squareup.picasso.Picasso
 
 class FeedAdapter(var list: ArrayList<Feed>, val onClickFeed: FeedInterface): RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
+    private lateinit var binding: FeedItemBinding
     inner class FeedViewHolder(val binding: FeedItemBinding): RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val view = LayoutInflater.from(parent.context)
-        val binding = FeedItemBinding.inflate(view, parent, false)
+        binding = FeedItemBinding.inflate(view, parent, false)
         return FeedViewHolder(binding)
     }
 
@@ -23,7 +27,11 @@ class FeedAdapter(var list: ArrayList<Feed>, val onClickFeed: FeedInterface): Re
         val currentItem = list[position]
         holder.binding.apply {
             edtDescription.setText(currentItem.description)
-            txtName.text = currentItem.name
+            if (currentItem.name.isEmpty()) {
+                txtName.text = "You"
+            } else {
+                txtName.text = currentItem.name
+            }
             txtDate.text = currentItem.createdAt
             Picasso.get().load(currentItem.imageUrl).into(imgFeed)
 

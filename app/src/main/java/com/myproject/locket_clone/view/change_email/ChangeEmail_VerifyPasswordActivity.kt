@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.change_email
+package com.myproject.locket_clone.view.change_email
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +7,8 @@ import android.widget.Toast
 import com.myproject.locket_clone.databinding.ActivityChangeEmailVerifyPasswordBinding
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
-import com.myproject.locket_clone.ui.sign_in.SignInActivity
-import com.myproject.locket_clone.ui.user.UserActivity
+import com.myproject.locket_clone.view.sign_in.SignInActivity
+import com.myproject.locket_clone.view.user.UserActivity
 
 class ChangeEmail_VerifyPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeEmailVerifyPasswordBinding

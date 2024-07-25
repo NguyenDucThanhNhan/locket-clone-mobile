@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.search_user
+package com.myproject.locket_clone.view.search_user
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myproject.locket_clone.databinding.ActivitySearchUserBinding
@@ -18,7 +17,7 @@ import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.recycler_view.SearchUserAdapter
 import com.myproject.locket_clone.recycler_view.SearchUserInterface
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.home.HomeActivity
+import com.myproject.locket_clone.view.home.HomeActivity
 import com.myproject.locket_clone.viewmodel.home.HomeViewModel
 import com.myproject.locket_clone.viewmodel.home.HomeViewModelFactory
 

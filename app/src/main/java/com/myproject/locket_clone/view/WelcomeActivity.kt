@@ -1,11 +1,11 @@
-package com.myproject.locket_clone.ui
+package com.myproject.locket_clone.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.myproject.locket_clone.databinding.ActivityWelcomeBinding
-import com.myproject.locket_clone.ui.create_account.ChooseEmailActivity
-import com.myproject.locket_clone.ui.sign_in.SignInActivity
+import com.myproject.locket_clone.view.create_account.ChooseEmailActivity
+import com.myproject.locket_clone.view.sign_in.SignInActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding

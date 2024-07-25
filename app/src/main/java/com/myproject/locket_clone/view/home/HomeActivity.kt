@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.home
+package com.myproject.locket_clone.view.home
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -16,16 +17,21 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityHomeBinding
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
+import com.myproject.locket_clone.recycler_view.AllFriendsAdapter
+import com.myproject.locket_clone.recycler_view.AllFriendsInterface
+import com.myproject.locket_clone.recycler_view.FriendsListAdapter
+import com.myproject.locket_clone.recycler_view.FriendsListInterface
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.create_feed.CreateFeedActivity
-import com.myproject.locket_clone.ui.feed.FeedActivity
-import com.myproject.locket_clone.ui.friends.FriendsActivity
-import com.myproject.locket_clone.ui.search_user.SearchUserActivity
-import com.myproject.locket_clone.ui.user.UserActivity
+import com.myproject.locket_clone.view.create_feed.CreateFeedActivity
+import com.myproject.locket_clone.view.feed.FeedActivity
+import com.myproject.locket_clone.view.friends.FriendsActivity
+import com.myproject.locket_clone.view.search_user.SearchUserActivity
+import com.myproject.locket_clone.view.user.UserActivity
 import com.myproject.locket_clone.viewmodel.home.HomeViewModel
 import com.myproject.locket_clone.viewmodel.home.HomeViewModelFactory
 import java.io.File
@@ -64,12 +70,11 @@ class HomeActivity : AppCompatActivity() {
         receivedInviteList = (intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?)!!
 
         //Gán dữ liệu vào layout
-        if (friendList != null) {
-            if (friendList.size != 1) {
-                binding.btnFriends.text = "${friendList.size} Friends"
-            } else {
-                binding.btnFriends.text = "1 Friend"
-            }
+        //Gan cho so luong ban be
+        if (friendList.size != 1) {
+            binding.btnFriends.text = "${friendList.size} Friends"
+        } else {
+            binding.btnFriends.text = "1 Friend"
         }
 
         //Kiểm tra quyền truy cập

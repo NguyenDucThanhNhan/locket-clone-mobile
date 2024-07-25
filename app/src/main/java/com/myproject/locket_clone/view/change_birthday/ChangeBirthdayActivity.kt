@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.change_birthday
+package com.myproject.locket_clone.view.change_birthday
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -13,7 +13,7 @@ import com.myproject.locket_clone.model.BirthdayChangeResponse
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.user.UserActivity
+import com.myproject.locket_clone.view.user.UserActivity
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModel
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModelFactory
 import java.text.SimpleDateFormat

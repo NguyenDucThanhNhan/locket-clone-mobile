@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.create_account
+package com.myproject.locket_clone.view.create_account
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

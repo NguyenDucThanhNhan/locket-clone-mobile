@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.create_account
+package com.myproject.locket_clone.view.create_account
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.databinding.ActivityChooseNameBinding
 import com.myproject.locket_clone.model.SignupResponse
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.sign_in.SignInActivity
+import com.myproject.locket_clone.view.sign_in.SignInActivity
 import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModelFactory
 import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModel
 import java.text.SimpleDateFormat

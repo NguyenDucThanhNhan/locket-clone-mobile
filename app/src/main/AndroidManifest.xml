@@ -22,55 +22,55 @@
         android:theme="@style/Theme.LocketClone"
         tools:targetApi="31">
         <activity
-            android:name=".ui.feed.FeedActivity"
+            android:name=".view.feed.FeedActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.create_feed.CreateFeedActivity"
+            android:name=".view.create_feed.CreateFeedActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.friends.FriendsActivity"
+            android:name=".view.friends.FriendsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.search_user.SearchUserActivity"
+            android:name=".view.search_user.SearchUserActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.change_birthday.ChangeBirthdayActivity"
+            android:name=".view.change_birthday.ChangeBirthdayActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.change_email.ChangeEmail_VerifyEmailActivity"
+            android:name=".view.change_email.ChangeEmail_VerifyEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.change_email.ChangeEmail_VerifyPasswordActivity"
+            android:name=".view.change_email.ChangeEmail_VerifyPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.change_name.ChangeNameActivity"
+            android:name=".view.change_name.ChangeNameActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.change_password.ChangePasswordStepTwoActivity"
+            android:name=".view.change_password.ChangePasswordStepTwoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.change_password.ChangePasswordActivity"
+            android:name=".view.change_password.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.UserActivity"
+            android:name=".view.user.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".view.home.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.sign_in.SignInActivity"
+            android:name=".view.sign_in.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.create_account.ChooseNameActivity"
+            android:name=".view.create_account.ChooseNameActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.create_account.ChoosePasswordActivity"
+            android:name=".view.create_account.ChoosePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.create_account.ChooseEmailActivity"
+            android:name=".view.create_account.ChooseEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.WelcomeActivity"
+            android:name=".view.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

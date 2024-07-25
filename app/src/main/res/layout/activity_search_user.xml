@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".ui.search_user.SearchUserActivity">
+    tools:context=".view.search_user.SearchUserActivity">
 
     <ImageButton
         android:id="@+id/btn_back"

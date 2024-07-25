@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.user
+package com.myproject.locket_clone.view.user
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -10,7 +10,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,12 +18,11 @@ import com.myproject.locket_clone.databinding.ActivityUserBinding
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.change_birthday.ChangeBirthdayActivity
-import com.myproject.locket_clone.ui.change_email.ChangeEmail_VerifyEmailActivity
-import com.myproject.locket_clone.ui.change_email.ChangeEmail_VerifyPasswordActivity
-import com.myproject.locket_clone.ui.change_name.ChangeNameActivity
-import com.myproject.locket_clone.ui.home.HomeActivity
-import com.myproject.locket_clone.ui.sign_in.SignInActivity
+import com.myproject.locket_clone.view.change_birthday.ChangeBirthdayActivity
+import com.myproject.locket_clone.view.change_email.ChangeEmail_VerifyPasswordActivity
+import com.myproject.locket_clone.view.change_name.ChangeNameActivity
+import com.myproject.locket_clone.view.home.HomeActivity
+import com.myproject.locket_clone.view.sign_in.SignInActivity
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModel
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModelFactory
 import com.soundcloud.android.crop.Crop
@@ -33,8 +31,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 
 class UserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserBinding

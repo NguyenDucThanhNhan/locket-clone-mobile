@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".ui.home.HomeActivity">
+    tools:context=".view.home.HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,5 +109,4 @@
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:src="@drawable/ic_down_arrow" />
-
 </LinearLayout>

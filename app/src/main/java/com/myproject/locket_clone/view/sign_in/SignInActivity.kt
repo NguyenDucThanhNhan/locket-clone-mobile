@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.sign_in
+package com.myproject.locket_clone.view.sign_in
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +13,8 @@ import com.myproject.locket_clone.model.Fullname
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.change_password.ChangePasswordActivity
-import com.myproject.locket_clone.ui.home.HomeActivity
+import com.myproject.locket_clone.view.change_password.ChangePasswordActivity
+import com.myproject.locket_clone.view.home.HomeActivity
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModel
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModelFactory
 

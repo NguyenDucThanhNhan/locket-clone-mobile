@@ -1,21 +1,27 @@
-package com.myproject.locket_clone.ui.feed
+package com.myproject.locket_clone.view.feed
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityFeedBinding
+import com.myproject.locket_clone.databinding.ActivityHomeBinding
+import com.myproject.locket_clone.databinding.FeedItemBinding
 import com.myproject.locket_clone.model.Feed
-import com.myproject.locket_clone.model.FeedMetadata
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.Fullname
 import com.myproject.locket_clone.model.GetCertainFeedsResponse
 import com.myproject.locket_clone.model.Reaction
 import com.myproject.locket_clone.model.ReactionStatistic
 import com.myproject.locket_clone.model.UserProfile
+import com.myproject.locket_clone.recycler_view.AllFriendsAdapter
+import com.myproject.locket_clone.recycler_view.AllFriendsInterface
 import com.myproject.locket_clone.recycler_view.FeedAdapter
 import com.myproject.locket_clone.recycler_view.FeedInterface
 import com.myproject.locket_clone.recycler_view.FriendsListAdapter
@@ -26,30 +32,38 @@ import com.myproject.locket_clone.viewmodel.feed.FeedViewModelFactory
 
 class FeedActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFeedBinding
+    private lateinit var homeBinding: FeedItemBinding
     private lateinit var feedAdapter: FeedAdapter
     private var feedList = ArrayList<Feed>()
     private var friendList = ArrayList<Friend>()
+    private lateinit var allFriendsadapter: AllFriendsAdapter
     private lateinit var feedViewModel: FeedViewModel
+    private var isClickAllFriends = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFeedBinding.inflate(layoutInflater)
+        homeBinding = FeedItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //Khoi tao ban dau
         val repository by lazy { Repository() }
         val viewModelFactory by lazy { FeedViewModelFactory(repository) }
         feedViewModel = ViewModelProvider(this, viewModelFactory).get(
-            FeedViewModel::class.java)
+            FeedViewModel::class.java
+        )
 
         //Nhan du lieu tu HomeActivity
         val userProfile: UserProfile? = intent.getSerializableExtra("USER_PROFILE") as? UserProfile
         friendList = intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>
         val sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>
-        val receivedInviteList = intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>
+        val receivedInviteList =
+            intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>
 
         //Lay tat ca feed cho user
         if (userProfile != null) {
-            feedViewModel.getCertainFeeds(userProfile.signInKey, userProfile.userId, userProfile.userId, 1)
+            for (u in friendList) {
+                feedViewModel.getCertainFeeds(userProfile.signInKey, userProfile.userId, u.id, 1)
+            }
         }
 
         //Xu ly ket qua tra ve tu server
@@ -58,7 +72,7 @@ class FeedActivity : AppCompatActivity() {
         }
 
         //Hien thi feeds
-        feedAdapter = FeedAdapter(feedList, object: FeedInterface {
+        feedAdapter = FeedAdapter(feedList, object : FeedInterface {
             override fun onClickHeart(position: Int) {
                 TODO("Not yet implemented")
             }
@@ -88,7 +102,21 @@ class FeedActivity : AppCompatActivity() {
             }
 
             override fun onClickAllFriends(position: Int) {
-                TODO("Not yet implemented")
+                if (isClickAllFriends) {
+                    isClickAllFriends = false
+                    homeBinding.rvAllFriends.visibility = View.GONE
+                    feedList.clear()
+                    //Lay tat ca feed cho user
+                    if (userProfile != null) {
+                        for (u in friendList) {
+                            feedViewModel.getCertainFeeds(userProfile.signInKey, userProfile.userId, u.id, 1)
+                        }
+                    }
+                } else {
+                    isClickAllFriends = true
+                    homeBinding.rvAllFriends.visibility = View.VISIBLE
+                }
+
             }
 
             override fun onClickSearchUser(position: Int) {
@@ -109,11 +137,30 @@ class FeedActivity : AppCompatActivity() {
         binding.rvFeed.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.VERTICAL,
-            false)
+            false
+        )
 
         // Sử dụng SnapHelper để tạo hiệu ứng lướt
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvFeed)
+
+        //Gan cho danh sach ban be
+        homeBinding.rvAllFriends.visibility = View.VISIBLE
+        allFriendsadapter = AllFriendsAdapter(friendList, object: AllFriendsInterface {
+            override fun onClickFriend(position: Int) {
+                feedList.clear()
+                if (userProfile != null) {
+                    feedViewModel.getCertainFeeds(userProfile.signInKey, userProfile.userId, friendList[position].id, 1)
+                }
+            }
+
+        })
+        homeBinding.rvAllFriends.adapter = allFriendsadapter
+
+        homeBinding.rvAllFriends.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -130,16 +177,29 @@ class FeedActivity : AppCompatActivity() {
                     val createdAt = feedViewModel.formatDateString(feed.createdAt)
                     val updatedAt = feed.updatedAt
                     val v = feed.__v
-                    val reactionStatistic = ReactionStatistic(feed.reactionStatistic.angry, feed.reactionStatistic.haha,
-                        feed.reactionStatistic.like, feed.reactionStatistic.love, feed.reactionStatistic.sad, feed.reactionStatistic.wow)
+                    val reactionStatistic = ReactionStatistic(
+                        feed.reactionStatistic.angry,
+                        feed.reactionStatistic.haha,
+                        feed.reactionStatistic.like,
+                        feed.reactionStatistic.love,
+                        feed.reactionStatistic.sad,
+                        feed.reactionStatistic.wow
+                    )
 
-                    val reactions =ArrayList<Reaction>()
+                    val reactions = ArrayList<Reaction>()
                     for (r in feed.reactions) {
                         val userIdReaction = r.userId
                         val reactionFullname = Fullname(r.fullname.firstname, r.fullname.lastname)
                         val reactionImageUrl = r.profileImageUrl
                         val reactionIcon = r.icon
-                        reactions.add(Reaction(userIdReaction, reactionFullname, reactionImageUrl, reactionIcon))
+                        reactions.add(
+                            Reaction(
+                                userIdReaction,
+                                reactionFullname,
+                                reactionImageUrl,
+                                reactionIcon
+                            )
+                        )
                     }
 
                     val visibility = ArrayList<String>()
@@ -159,15 +219,31 @@ class FeedActivity : AppCompatActivity() {
                         }
                     }
 
-                    feedList.add(Feed(userId, description, profileImageUrl, visibility, feedId, reactions, reactionStatistic, createdAt, updatedAt, v, name))
+                    feedList.add(
+                        Feed(
+                            userId,
+                            description,
+                            profileImageUrl,
+                            visibility,
+                            feedId,
+                            reactions,
+                            reactionStatistic,
+                            createdAt,
+                            updatedAt,
+                            v,
+                            name
+                        )
+                    )
 
                     feedAdapter.notifyDataSetChanged()
                 }
             }
+
             400 -> {
                 // Xử lý các trạng thái lỗi khác
                 Log.e("GetCertainFeeds", "Lỗi khi lấy feed: ${response.message}")
             }
+
             else -> {
                 // Xử lý lỗi không xác định
                 Log.e("GetCertainFeeds", "Lỗi không xác định: ${response.message}")

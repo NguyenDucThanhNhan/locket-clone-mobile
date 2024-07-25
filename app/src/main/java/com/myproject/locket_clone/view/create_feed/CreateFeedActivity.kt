@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.create_feed
+package com.myproject.locket_clone.view.create_feed
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,20 +8,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityCreateFeedBinding
 import com.myproject.locket_clone.model.CreateFeedResponse
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.Fullname
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.model.Visibility
-import com.myproject.locket_clone.recycler_view.FriendsListAdapter
-import com.myproject.locket_clone.recycler_view.FriendsListInterface
 import com.myproject.locket_clone.recycler_view.VisibilityFriendsAdapter
 import com.myproject.locket_clone.recycler_view.VisibilityFriendsInterface
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.friends.FriendsActivity
-import com.myproject.locket_clone.ui.home.HomeActivity
+import com.myproject.locket_clone.view.home.HomeActivity
 import com.myproject.locket_clone.viewmodel.home.HomeViewModel
 import com.myproject.locket_clone.viewmodel.home.HomeViewModelFactory
 import com.squareup.picasso.Picasso

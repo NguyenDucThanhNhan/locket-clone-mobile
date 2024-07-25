@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.change_password
+package com.myproject.locket_clone.view.change_password
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.databinding.ActivityChangePasswordStepTwoBinding
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.sign_in.SignInActivity
+import com.myproject.locket_clone.view.sign_in.SignInActivity
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModel
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModelFactory
 

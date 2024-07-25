@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.friends
+package com.myproject.locket_clone.view.friends
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -21,7 +21,7 @@ import com.myproject.locket_clone.recycler_view.FriendRequestsInterface
 import com.myproject.locket_clone.recycler_view.FriendsListAdapter
 import com.myproject.locket_clone.recycler_view.FriendsListInterface
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.home.HomeActivity
+import com.myproject.locket_clone.view.home.HomeActivity
 import com.myproject.locket_clone.viewmodel.home.HomeViewModel
 import com.myproject.locket_clone.viewmodel.home.HomeViewModelFactory
 import com.squareup.picasso.Picasso

@@ -1,4 +1,4 @@
-package com.myproject.locket_clone.ui.change_name
+package com.myproject.locket_clone.view.change_name
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,18 +6,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityChangeNameBinding
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.NameChangeResponse
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
-import com.myproject.locket_clone.ui.user.UserActivity
-import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModel
-import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModelFactory
+import com.myproject.locket_clone.view.user.UserActivity
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModel
 import com.myproject.locket_clone.viewmodel.user_profile.UserProfileViewModelFactory
-import com.squareup.picasso.Picasso
 
 class ChangeNameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeNameBinding
