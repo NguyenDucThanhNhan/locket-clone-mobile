@@ -27,7 +27,7 @@ data class Reaction(
     val fullname: Fullname,
     val profileImageUrl: String,
     val icon: String
-)
+) : Serializable
 
 data class ReactionStatistic(
     val angry: Int,
@@ -36,7 +36,7 @@ data class ReactionStatistic(
     val love: Int,
     val sad: Int,
     val wow: Int
-)
+) : Serializable
 
 data class Visibility(
     val id: String,
@@ -64,4 +64,4 @@ data class Feed(
     val updatedAt: String,
     val __v: Int,
     val name: String
-)
+) : Serializable

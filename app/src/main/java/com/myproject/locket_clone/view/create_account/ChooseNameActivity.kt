@@ -100,7 +100,7 @@ class ChooseNameActivity : AppCompatActivity() {
                 selectedDate.set(year, month, dayOfMonth)
 
                 // Định dạng ngày thành chuỗi "dd/MM/yyyy"
-                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
 
                 // Gọi hàm callback và trả về chuỗi định dạng

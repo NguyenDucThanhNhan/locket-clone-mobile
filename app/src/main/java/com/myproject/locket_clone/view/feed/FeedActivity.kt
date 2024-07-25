@@ -1,6 +1,7 @@
 package com.myproject.locket_clone.view.feed
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -124,7 +125,14 @@ class FeedActivity : AppCompatActivity() {
             }
 
             override fun onClickGrid(position: Int) {
-                TODO("Not yet implemented")
+                val intent = Intent(this@FeedActivity, FeedInGridActivity::class.java).apply {
+                    putExtra("USER_PROFILE", userProfile)
+                    putExtra("FRIEND_LIST", friendList)
+                    putExtra("SENT_INVITE_LIST", sentInviteList)
+                    putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
+                    putExtra("FEED_LIST", feedList)
+                }
+                startActivity(intent)
             }
 
             override fun onClickMore(position: Int) {
