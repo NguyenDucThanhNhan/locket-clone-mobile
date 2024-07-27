@@ -2,14 +2,12 @@ package com.myproject.locket_clone.recycler_view
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.FeedItemBinding
 import com.myproject.locket_clone.model.Feed
-import com.myproject.locket_clone.model.FeedMetadata
-import com.myproject.locket_clone.model.Friend
 import com.squareup.picasso.Picasso
 
 class FeedAdapter(var list: ArrayList<Feed>, val onClickFeed: FeedInterface): RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
@@ -24,6 +22,11 @@ class FeedAdapter(var list: ArrayList<Feed>, val onClickFeed: FeedInterface): Re
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
+        //Khoi tao animation
+        //Lay context
+        val context = holder.binding.root.context
+        val scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up)
+
         val currentItem = list[position]
         holder.binding.apply {
             edtDescription.setText(currentItem.description)
@@ -37,26 +40,32 @@ class FeedAdapter(var list: ArrayList<Feed>, val onClickFeed: FeedInterface): Re
 
             btnHeart.setOnClickListener {
                 onClickFeed.onClickHeart(position)
+                it.startAnimation(scaleUp)
             }
 
             btnHaha.setOnClickListener {
                 onClickFeed.onClickHaha(position)
+                it.startAnimation(scaleUp)
             }
 
             btnLike.setOnClickListener {
                 onClickFeed.onClickLike(position)
+                it.startAnimation(scaleUp)
             }
 
             btnSad.setOnClickListener {
                 onClickFeed.onClickSad(position)
+                it.startAnimation(scaleUp)
             }
 
             btnWow.setOnClickListener {
                 onClickFeed.onClickWow(position)
+                it.startAnimation(scaleUp)
             }
 
             btnAngry.setOnClickListener {
                 onClickFeed.onClickAngry(position)
+                it.startAnimation(scaleUp)
             }
 
             btnUserProfile.setOnClickListener {

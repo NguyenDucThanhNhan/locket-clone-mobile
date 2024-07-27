@@ -71,7 +71,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="150dp"
             android:background="@drawable/edittext_background"
+            android:clickable="false"
             android:ems="10"
+            android:focusableInTouchMode="false"
             android:gravity="center"
             android:inputType="text"
             android:padding="10dp"
@@ -108,10 +110,10 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        app:cardCornerRadius="20dp"
-        android:layout_height="wrap_content" >
+        android:layout_marginTop="15dp"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="370dp"

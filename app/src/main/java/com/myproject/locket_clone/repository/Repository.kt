@@ -14,6 +14,8 @@ import com.myproject.locket_clone.model.GetCertainFeedsResponse
 import com.myproject.locket_clone.model.Home
 import com.myproject.locket_clone.model.NameChangeRequest
 import com.myproject.locket_clone.model.NameChangeResponse
+import com.myproject.locket_clone.model.ReactFeedResponse
+import com.myproject.locket_clone.model.ReactRequest
 import com.myproject.locket_clone.model.SigninRequest
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
@@ -109,6 +111,10 @@ class Repository {
 
     suspend fun getCertainFeeds(authorization: String, userId: String, searchId: String, page: Int): GetCertainFeedsResponse {
         return RetrofitInstance.api.getCertainFeeds(authorization, userId, searchId, page)
+    }
+
+    suspend fun reactFeed(authorization: String, userId: String, feedId: String, icon: String): ReactFeedResponse {
+        return RetrofitInstance.api.reactFeed(authorization, userId, feedId, ReactRequest(icon))
     }
 
 }

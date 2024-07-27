@@ -13,6 +13,8 @@ import com.myproject.locket_clone.model.GetCertainFeedsResponse
 import com.myproject.locket_clone.model.Home
 import com.myproject.locket_clone.model.NameChangeRequest
 import com.myproject.locket_clone.model.NameChangeResponse
+import com.myproject.locket_clone.model.ReactFeedResponse
+import com.myproject.locket_clone.model.ReactRequest
 import com.myproject.locket_clone.model.SigninRequest
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
@@ -160,4 +162,13 @@ interface APIService {
         @Path("searchId") searchId: String,
         @Query("page") page: Int
     ): GetCertainFeedsResponse
+
+    //Bay to cam xuc
+    @POST("feed/{feedId}")
+    suspend fun reactFeed(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Path("feedId") feedId: String,
+        @Body reactRequest: ReactRequest
+    ): ReactFeedResponse
 }

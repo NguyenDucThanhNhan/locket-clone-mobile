@@ -9,15 +9,13 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityFeedBinding
-import com.myproject.locket_clone.databinding.ActivityHomeBinding
 import com.myproject.locket_clone.databinding.FeedItemBinding
 import com.myproject.locket_clone.model.Feed
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.Fullname
 import com.myproject.locket_clone.model.GetCertainFeedsResponse
+import com.myproject.locket_clone.model.ReactFeedResponse
 import com.myproject.locket_clone.model.Reaction
 import com.myproject.locket_clone.model.ReactionStatistic
 import com.myproject.locket_clone.model.UserProfile
@@ -25,8 +23,6 @@ import com.myproject.locket_clone.recycler_view.AllFriendsAdapter
 import com.myproject.locket_clone.recycler_view.AllFriendsInterface
 import com.myproject.locket_clone.recycler_view.FeedAdapter
 import com.myproject.locket_clone.recycler_view.FeedInterface
-import com.myproject.locket_clone.recycler_view.FriendsListAdapter
-import com.myproject.locket_clone.recycler_view.FriendsListInterface
 import com.myproject.locket_clone.repository.Repository
 import com.myproject.locket_clone.viewmodel.feed.FeedViewModel
 import com.myproject.locket_clone.viewmodel.feed.FeedViewModelFactory
@@ -67,35 +63,42 @@ class FeedActivity : AppCompatActivity() {
             }
         }
 
-        //Xu ly ket qua tra ve tu server
-        feedViewModel.getCertainFeedsResponse.observe(this) { response ->
-            handleGetCertainFeedsResponse(response)
-        }
-
         //Hien thi feeds
         feedAdapter = FeedAdapter(feedList, object : FeedInterface {
             override fun onClickHeart(position: Int) {
-                TODO("Not yet implemented")
+                if (userProfile != null) {
+                    feedViewModel.reactFeed(userProfile.signInKey, userProfile.userId, feedList[position]._id, "love")
+                }
             }
 
             override fun onClickHaha(position: Int) {
-                TODO("Not yet implemented")
+                if (userProfile != null) {
+                    feedViewModel.reactFeed(userProfile.signInKey, userProfile.userId, feedList[position]._id, "haha")
+                }
             }
 
             override fun onClickLike(position: Int) {
-                TODO("Not yet implemented")
+                if (userProfile != null) {
+                    feedViewModel.reactFeed(userProfile.signInKey, userProfile.userId, feedList[position]._id, "love")
+                }
             }
 
             override fun onClickWow(position: Int) {
-                TODO("Not yet implemented")
+                if (userProfile != null) {
+                    feedViewModel.reactFeed(userProfile.signInKey, userProfile.userId, feedList[position]._id, "wow")
+                }
             }
 
             override fun onClickAngry(position: Int) {
-                TODO("Not yet implemented")
+                if (userProfile != null) {
+                    feedViewModel.reactFeed(userProfile.signInKey, userProfile.userId, feedList[position]._id, "angry")
+                }
             }
 
             override fun onClickSad(position: Int) {
-                TODO("Not yet implemented")
+                if (userProfile != null) {
+                    feedViewModel.reactFeed(userProfile.signInKey, userProfile.userId, feedList[position]._id, "sad")
+                }
             }
 
             override fun onClickUserProfile(position: Int) {
@@ -169,6 +172,33 @@ class FeedActivity : AppCompatActivity() {
             this,
             LinearLayoutManager.VERTICAL,
             false)
+
+        //Xu ly ket qua tra ve tu server
+        //Lay cac bai dang
+        feedViewModel.getCertainFeedsResponse.observe(this) { response ->
+            handleGetCertainFeedsResponse(response)
+        }
+        //Bay to cam xuc
+        feedViewModel.reactFeedResponse.observe(this) { response ->
+            handleReactFeedResponse(response)
+        }
+    }
+
+    private fun handleReactFeedResponse(response: ReactFeedResponse) {
+        when (response.status) {
+            200 -> {
+                val feedMetadata = response.metadata ?: return
+                Log.d("ReactFeed", "Feed reacted successfully: ${feedMetadata.description}")
+            }
+            400 -> {
+                // Xử lý các trạng thái lỗi khác
+                Log.e("ReactFeed", "Lỗi khi phản hồi feed: ${response.message}")
+            }
+            else -> {
+                // Xử lý lỗi không xác định
+                Log.e("ReactFeed", "Lỗi không xác định: ${response.message}")
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -258,4 +288,6 @@ class FeedActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

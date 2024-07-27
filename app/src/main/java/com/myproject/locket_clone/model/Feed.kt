@@ -65,3 +65,14 @@ data class Feed(
     val __v: Int,
     val name: String
 ) : Serializable
+
+data class ReactRequest(
+    val icon: String
+)
+
+data class ReactFeedResponse(
+    val message: String,
+    val status: Int,
+    val reasonPhrase: String?,
+    val metadata: FeedMetadata?
+)

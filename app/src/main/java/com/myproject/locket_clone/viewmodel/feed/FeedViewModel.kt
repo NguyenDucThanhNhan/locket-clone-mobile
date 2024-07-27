@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myproject.locket_clone.model.GetCertainFeedsResponse
+import com.myproject.locket_clone.model.ReactFeedResponse
 import com.myproject.locket_clone.repository.Repository
 import kotlinx.coroutines.launch
 
@@ -40,5 +41,24 @@ class FeedViewModel (private val repository: Repository) : ViewModel() {
 
         // Định dạng lại thành "ngày/tháng/năm"
         return "$day/$month/$year"
+    }
+
+    private val _reactFeedResponse = MutableLiveData<ReactFeedResponse>()
+    val reactFeedResponse: LiveData<ReactFeedResponse> get() = _reactFeedResponse
+
+    fun reactFeed(authorization: String, userId: String, feedId: String, icon: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.reactFeed(authorization, userId, feedId, icon)
+                _reactFeedResponse.value = response
+            } catch (e: Exception) {
+                _reactFeedResponse.value = ReactFeedResponse(
+                    message = "Error: ${e.message}",
+                    status = 400,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
     }
 }
