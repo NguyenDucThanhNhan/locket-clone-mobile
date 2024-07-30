@@ -10,11 +10,17 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityUserBinding
+import com.myproject.locket_clone.databinding.DeleteAccountDialogBinding
+import com.myproject.locket_clone.model.DeleteAccountResponse
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
@@ -36,6 +42,7 @@ class UserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserBinding
     private lateinit var userProfileViewModel: UserProfileViewModel
     private lateinit var userProfile: UserProfile
+    lateinit var deleteAccountdialog: AlertDialog
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 101
@@ -140,6 +147,60 @@ class UserActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE)
         }
+
+        //Click delete account
+        binding.btnDeleteAccount.setOnClickListener {
+            showDeleteAccountDialog(userProfile.signInKey, userProfile.userId)
+        }
+
+        //Lang nghe ket qua tra ve khi delete account
+        userProfileViewModel.deleteAccountResponse.observe(this) { response ->
+            handleDeleteAccountResponse(response)
+        }
+    }
+
+    private fun handleDeleteAccountResponse(response: DeleteAccountResponse) {
+        when (response.status) {
+            200 -> {
+                Log.d("DeleteAccount", "Deleted account successfully")
+                deleteAccountdialog.dismiss()
+                val intent = Intent(this, SignInActivity::class.java)
+                startActivity(intent)
+            }
+            400 -> {
+                Log.e("DeleteAccount", "Lỗi khi xóa tài khoản: ${response.message}")
+                Toast.makeText(this, "Password is incorrect!", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                Log.e("DeleteAccount", "Lỗi không xác định: ${response.message}")
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showDeleteAccountDialog(
+        signInKey: String,
+        userId: String
+    ) {
+        //Theme o day duoc lay tu values/themes/themes
+        val build = AlertDialog.Builder(this, R.style.ThemeDeleteAccountDialog)
+        val dialogBinding = DeleteAccountDialogBinding.inflate(LayoutInflater.from(this))
+        build.setView(dialogBinding.root)
+        dialogBinding.btnCancel.setOnClickListener {
+            deleteAccountdialog.dismiss()
+        }
+        dialogBinding.btnOk.setOnClickListener {
+            val password = dialogBinding.edtPassword.text.toString()
+            if (password.isEmpty()) {
+                Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                Log.d("DEBUG", password)
+                userProfileViewModel.deleteAccount(signInKey, userId, password)
+            }
+        }
+        deleteAccountdialog = build.create()
+        deleteAccountdialog.show()
     }
 
     override fun onRequestPermissionsResult(

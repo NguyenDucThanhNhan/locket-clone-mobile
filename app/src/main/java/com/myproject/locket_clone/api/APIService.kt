@@ -7,6 +7,7 @@ import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
 import com.myproject.locket_clone.model.ChangePasswordResponse
 import com.myproject.locket_clone.model.CreateFeedResponse
+import com.myproject.locket_clone.model.DeleteAccountResponse
 import com.myproject.locket_clone.model.EmailValidationRequest
 import com.myproject.locket_clone.model.EmailValidationResponse
 import com.myproject.locket_clone.model.GetCertainFeedsResponse
@@ -19,11 +20,14 @@ import com.myproject.locket_clone.model.SigninRequest
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.SignupRequest
 import com.myproject.locket_clone.model.SignupResponse
+import com.myproject.locket_clone.model.UpdateFeedRequest
+import com.myproject.locket_clone.model.UpdateFeedResponse
 import com.myproject.locket_clone.model.UpdateProfileImageResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
@@ -135,9 +139,17 @@ interface APIService {
         @Path("userId") targetUserId: String
     ): Home.UserInfoResponse
 
-    //Xoa loi moi ket ban
+    //Xoa loi moi ket ban tu nguoi nhan
+    @POST("account/friend/remove-invite-receiver")
+    suspend fun removeInviteFromReceiver(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Body removeInviteRequest: Home.RemoveInviteRequest
+    ): Home.RemoveInviteResponse
+
+    //Xoa loi moi ket ban tu nguoi gui
     @POST("account/friend/remove-invite")
-    suspend fun removeInvite(
+    suspend fun removeInviteFromSender(
         @Header("authorization") authorization: String,
         @Header("user-id") userId: String,
         @Body removeInviteRequest: Home.RemoveInviteRequest
@@ -171,4 +183,21 @@ interface APIService {
         @Path("feedId") feedId: String,
         @Body reactRequest: ReactRequest
     ): ReactFeedResponse
+
+    //Xoa tai khoan
+    @DELETE("account/delete")
+    suspend fun deleteAccount(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Query("password") password: String
+    ): DeleteAccountResponse
+
+    //Cap nhat feed
+    @PATCH("feed/update/{feedId}")
+    suspend fun updateFeed(
+        @Header("authorization") authorization: String,
+        @Header("user-id") userId: String,
+        @Path("feedId") feedId: String,
+        @Body request: UpdateFeedRequest
+    ): UpdateFeedResponse
 }

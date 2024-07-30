@@ -76,3 +76,15 @@ data class ReactFeedResponse(
     val reasonPhrase: String?,
     val metadata: FeedMetadata?
 )
+
+data class UpdateFeedRequest(
+    val description: String?,
+    val visibility: String?
+)
+
+data class UpdateFeedResponse(
+    val message: String,
+    val status: Int,
+    val reasonPhrase: String,
+    val metadata: FeedMetadata?
+)

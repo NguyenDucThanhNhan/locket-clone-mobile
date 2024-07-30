@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityChooseEmailBinding
 import com.myproject.locket_clone.repository.Repository
+import com.myproject.locket_clone.view.WelcomeActivity
+import com.myproject.locket_clone.view.change_password.ChangePasswordActivity
 import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModelFactory
 import com.myproject.locket_clone.viewmodel.create_account.CreateAccountViewModel
 
@@ -50,6 +52,11 @@ class ChooseEmailActivity : AppCompatActivity() {
             binding.txtSendCode.visibility = View.VISIBLE
             binding.txtVerification.visibility = View.VISIBLE
             binding.edtVerification.visibility = View.VISIBLE
+        }
+
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, WelcomeActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnContinue.setOnClickListener {

@@ -9,7 +9,7 @@
     tools:context=".view.sign_in.SignInActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_back"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"

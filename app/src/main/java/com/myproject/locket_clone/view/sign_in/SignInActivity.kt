@@ -1,5 +1,6 @@
 package com.myproject.locket_clone.view.sign_in
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.myproject.locket_clone.model.Fullname
 import com.myproject.locket_clone.model.SigninResponse
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.repository.Repository
+import com.myproject.locket_clone.view.WelcomeActivity
 import com.myproject.locket_clone.view.change_password.ChangePasswordActivity
 import com.myproject.locket_clone.view.home.HomeActivity
 import com.myproject.locket_clone.viewmodel.sign_in.SignInViewModel
@@ -47,6 +49,11 @@ class SignInActivity : AppCompatActivity() {
 
         binding.btnForgotPassword.setOnClickListener {
             val intent = Intent(this, ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, WelcomeActivity::class.java)
             startActivity(intent)
         }
 
@@ -143,5 +150,11 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(this, response_text, Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+
     }
 }

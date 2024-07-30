@@ -41,7 +41,7 @@
         android:elevation="10dp"
         android:ems="10"
         android:gravity="center"
-        android:hint="Add a message"
+        android:hint="Update description"
         android:inputType="text"
         android:padding="10dp"
         android:textColor="@color/white"

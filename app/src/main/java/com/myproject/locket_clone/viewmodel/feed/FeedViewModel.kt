@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myproject.locket_clone.model.GetCertainFeedsResponse
 import com.myproject.locket_clone.model.ReactFeedResponse
+import com.myproject.locket_clone.model.UpdateFeedResponse
 import com.myproject.locket_clone.repository.Repository
 import kotlinx.coroutines.launch
 
@@ -58,6 +59,27 @@ class FeedViewModel (private val repository: Repository) : ViewModel() {
                     reasonPhrase = e.message,
                     metadata = null
                 )
+            }
+        }
+    }
+
+    private val _updateFeedResponse = MutableLiveData<UpdateFeedResponse>()
+    val updateFeedResponse: LiveData<UpdateFeedResponse> get() = _updateFeedResponse
+
+    fun updateFeed(authorization: String, userId: String, feedId: String, description: String?, visibility: String?) {
+        viewModelScope.launch {
+            try {
+                val response = repository.updateFeed(authorization, userId, feedId, description, visibility)
+                _updateFeedResponse.value = response
+            } catch (e: Exception) {
+                _updateFeedResponse.value = e.message?.let {
+                    UpdateFeedResponse(
+                        message = "Error: ${e.message}",
+                        status = 400,
+                        reasonPhrase = it,
+                        metadata = null
+                    )
+                }
             }
         }
     }

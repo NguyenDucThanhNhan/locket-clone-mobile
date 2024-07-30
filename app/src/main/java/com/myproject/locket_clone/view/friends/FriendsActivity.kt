@@ -32,7 +32,7 @@ class FriendsActivity : AppCompatActivity() {
     private lateinit var friendRequestsadapter: FriendRequestsAdapter
     private  var friendList = ArrayList<Friend>()
     private  var receivedInviteList = ArrayList<Friend>()
-    lateinit var removeFrienđialog: AlertDialog
+    private lateinit var removeFriendialog: AlertDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,23 +133,23 @@ class FriendsActivity : AppCompatActivity() {
         position: Int
     ) {
         //Theme o day duoc lay tu values/themes/themes
-        val build = AlertDialog.Builder(this, R.style.ThemeCustom)
+        val build = AlertDialog.Builder(this, R.style.ThemeRemoveFriendDialog)
         val dialogBinding = RemoveFriendDialogBinding.inflate(LayoutInflater.from(this))
         build.setView(dialogBinding.root)
         Picasso.get().load(image).into(dialogBinding.imgUserAvatar)
         dialogBinding.txtUserName.text = name.firstname + " " + name.lastname
         dialogBinding.btnClose.setOnClickListener {
-            removeFrienđialog.dismiss()
+            removeFriendialog.dismiss()
         }
         dialogBinding.btnCancel.setOnClickListener {
-            removeFrienđialog.dismiss()
+            removeFriendialog.dismiss()
         }
         dialogBinding.btnOk.setOnClickListener {
             homeViewModel.removeFriend(signInKey, userId, friendList[position].id)
-            removeFrienđialog.dismiss()
+            removeFriendialog.dismiss()
         }
-        removeFrienđialog = build.create()
-        removeFrienđialog.show()
+        removeFriendialog = build.create()
+        removeFriendialog.show()
     }
 
     @SuppressLint("NotifyDataSetChanged")

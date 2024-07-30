@@ -9,10 +9,17 @@
 
     <style name="Theme.LocketClone" parent="Base.Theme.LocketClone" />
     //Tao bo goc transparent va dieu chinh kich thuoc thong bao
-    <style name="ThemeCustom" parent="Theme.AppCompat.Light.Dialog">
+    <style name="ThemeRemoveFriendDialog" parent="Theme.AppCompat.Light.Dialog">
         //Bo goc
         <item name="android:windowBackground">@android:color/transparent</item>
         //Kich thuoc
         <item name="windowMinWidthMinor">80%</item>
+    </style>
+
+    <style name="ThemeDeleteAccountDialog" parent="Theme.AppCompat.Light.Dialog">
+        //Bo goc
+        <item name="android:windowBackground">@android:color/transparent</item>
+        //Kich thuoc
+        <item name="windowMinWidthMinor">95%</item>
     </style>
 </resources>

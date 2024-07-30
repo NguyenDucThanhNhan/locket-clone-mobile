@@ -1,14 +1,21 @@
 package com.myproject.locket_clone.view.feed
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.myproject.locket_clone.R
 import com.myproject.locket_clone.databinding.ActivityFeedBinding
 import com.myproject.locket_clone.databinding.FeedItemBinding
 import com.myproject.locket_clone.model.Feed
@@ -24,8 +31,13 @@ import com.myproject.locket_clone.recycler_view.AllFriendsInterface
 import com.myproject.locket_clone.recycler_view.FeedAdapter
 import com.myproject.locket_clone.recycler_view.FeedInterface
 import com.myproject.locket_clone.repository.Repository
+import com.myproject.locket_clone.view.create_feed.CreateFeedActivity
+import com.myproject.locket_clone.view.update_feed.UpdateFeedActivity
 import com.myproject.locket_clone.viewmodel.feed.FeedViewModel
 import com.myproject.locket_clone.viewmodel.feed.FeedViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class FeedActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFeedBinding
@@ -33,6 +45,9 @@ class FeedActivity : AppCompatActivity() {
     private lateinit var feedAdapter: FeedAdapter
     private var feedList = ArrayList<Feed>()
     private var friendList = ArrayList<Friend>()
+    private lateinit var userProfile: UserProfile
+    private var receivedInviteList: ArrayList<Friend> = ArrayList()
+    private var sentInviteList: ArrayList<Friend> = ArrayList()
     private lateinit var allFriendsadapter: AllFriendsAdapter
     private lateinit var feedViewModel: FeedViewModel
     private var isClickAllFriends = false
@@ -50,10 +65,10 @@ class FeedActivity : AppCompatActivity() {
         )
 
         //Nhan du lieu tu HomeActivity
-        val userProfile: UserProfile? = intent.getSerializableExtra("USER_PROFILE") as? UserProfile
+        userProfile = (intent.getSerializableExtra("USER_PROFILE") as? UserProfile)!!
         friendList = intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>
-        val sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>
-        val receivedInviteList =
+        sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>
+        receivedInviteList =
             intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>
 
         //Lay tat ca feed cho user
@@ -139,7 +154,7 @@ class FeedActivity : AppCompatActivity() {
             }
 
             override fun onClickMore(position: Int) {
-                TODO("Not yet implemented")
+                checkMoreButtonImageResource(position, feedList)
             }
 
         })
@@ -181,6 +196,51 @@ class FeedActivity : AppCompatActivity() {
         //Bay to cam xuc
         feedViewModel.reactFeedResponse.observe(this) { response ->
             handleReactFeedResponse(response)
+        }
+    }
+
+    private fun checkMoreButtonImageResource(position: Int, feedList: ArrayList<Feed>) {
+        val btnMore = feedAdapter.getMoreButton(position)
+        btnMore?.let {
+            val drawable = it.drawable
+            val moreDrawable = ContextCompat.getDrawable(this, R.drawable.ic_more)
+
+            if (drawable.constantState == moreDrawable?.constantState) {
+                val intent = Intent(this@FeedActivity, UpdateFeedActivity::class.java).apply {
+                    putExtra("USER_PROFILE", userProfile)
+                    putExtra("FRIEND_LIST", friendList)
+                    putExtra("SENT_INVITE_LIST", sentInviteList)
+                    putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
+                    putExtra("FEED_ID", feedList[position]._id)
+                    putExtra("DESCRIPTION", feedList[position].description)
+                    putExtra("VISIBILITY", feedList[position].visibility.toString())
+                    putExtra("IMAGE_PATH", feedList[position].imageUrl)
+                }
+                startActivity(intent)
+            } else {
+                downloadImage(this, feedList[position].imageUrl)
+            }
+        }
+    }
+
+    private fun downloadImage(context: Context, imageUrl: String) {
+        try {
+            val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
+            val imageName = "IMG_${sdf.format(Date())}"
+            val request = DownloadManager.Request(Uri.parse(imageUrl))
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            request.setTitle("Downloading image")
+            request.setDescription("Downloading image using DownloadManager.")
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES, "$imageName.jpg")
+
+            val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            downloadManager.enqueue(request)
+
+            Toast.makeText(context, "Downloading image...", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(context, "Download failed: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 

@@ -98,3 +98,10 @@ data class UpdateProfileImageFullname(
     val firstname: String,
     val lastname: String
 )
+
+data class DeleteAccountResponse(
+    val message: String,
+    val status: Int,
+    val reasonPhrase: String?,
+    val metadata: Any?
+)

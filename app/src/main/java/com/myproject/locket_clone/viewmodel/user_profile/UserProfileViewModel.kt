@@ -8,6 +8,7 @@ import com.myproject.locket_clone.model.BirthdayChangeRequest
 import com.myproject.locket_clone.model.BirthdayChangeResponse
 import com.myproject.locket_clone.model.ChangeEmailRequest
 import com.myproject.locket_clone.model.ChangeEmailResponse
+import com.myproject.locket_clone.model.DeleteAccountResponse
 import com.myproject.locket_clone.model.EmailValidationResponse
 import com.myproject.locket_clone.model.NameChangeResponse
 import com.myproject.locket_clone.model.UpdateProfileImageResponse
@@ -147,5 +148,22 @@ class UserProfileViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    private val _deleteAccountResponse = MutableLiveData<DeleteAccountResponse>()
+    val deleteAccountResponse: LiveData<DeleteAccountResponse> get() = _deleteAccountResponse
 
+    fun deleteAccount(authorization: String, userId: String, password: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.deleteAccount(authorization, userId, password)
+                _deleteAccountResponse.value = response
+            } catch (e: Exception) {
+                _deleteAccountResponse.value = DeleteAccountResponse(
+                    message = "Error: ${e.message}",
+                    status = 400,
+                    reasonPhrase = e.message,
+                    metadata = null
+                )
+            }
+        }
+    }
 }

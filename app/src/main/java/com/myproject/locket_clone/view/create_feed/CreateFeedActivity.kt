@@ -42,7 +42,7 @@ class CreateFeedActivity : AppCompatActivity() {
         homeViewModel = ViewModelProvider(this, viewModelFactory).get(
             HomeViewModel::class.java)
 
-        //Nhan du lieu tu SignInActivity
+        //Nhan du lieu tu HomeActivity
         userProfile = (intent.getSerializableExtra("USER_PROFILE") as? UserProfile)!!
         val friendList = intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>
         val sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>?
