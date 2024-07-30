@@ -28,9 +28,9 @@ class VisibilityInFeedAdapter(var list: ArrayList<Visibility>, val onAddVisibili
 
             // Doi mau khung vien
             if (currentItem.isClick) {
-                imgUserAvatar.borderColor = Color.parseColor("#595959")
-            } else {
                 imgUserAvatar.borderColor = Color.parseColor("#E3A400")
+            } else {
+                imgUserAvatar.borderColor = Color.parseColor("#595959")
             }
             //Lang nghe item click chon
             holder.itemView.setOnClickListener {

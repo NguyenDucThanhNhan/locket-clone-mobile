@@ -1,5 +1,7 @@
 package com.myproject.locket_clone.view.update_feed
 
+import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,11 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myproject.locket_clone.databinding.ActivityUpdateFeedBinding
 import com.myproject.locket_clone.model.Friend
 import com.myproject.locket_clone.model.Fullname
+import com.myproject.locket_clone.model.UpdateFeedResponse
 import com.myproject.locket_clone.model.UserProfile
 import com.myproject.locket_clone.model.Visibility
 import com.myproject.locket_clone.recycler_view.VisibilityInFeedAdapter
 import com.myproject.locket_clone.recycler_view.VisibilityInFeedInterface
 import com.myproject.locket_clone.repository.Repository
+import com.myproject.locket_clone.view.feed.FeedActivity
+import com.myproject.locket_clone.view.feed.FeedInGridActivity
 import com.myproject.locket_clone.viewmodel.feed.FeedViewModel
 import com.myproject.locket_clone.viewmodel.feed.FeedViewModelFactory
 import com.squareup.picasso.Picasso
@@ -23,6 +28,9 @@ class UpdateFeedActivity : AppCompatActivity() {
     private lateinit var userProfile: UserProfile
     private lateinit var visibilityAdapter: VisibilityInFeedAdapter
     private lateinit var feedViewModel: FeedViewModel
+    private var friendList: ArrayList<Friend> = ArrayList()
+    private var sentInviteList: ArrayList<Friend> = ArrayList()
+    private var receivedInviteList: ArrayList<Friend> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateFeedBinding.inflate(layoutInflater)
@@ -33,15 +41,17 @@ class UpdateFeedActivity : AppCompatActivity() {
         val viewModelFactory by lazy { FeedViewModelFactory(repository) }
         feedViewModel = ViewModelProvider(this, viewModelFactory).get(
             FeedViewModel::class.java)
-        var visibility: String = ""
+        //Day la list de gui len server cap nhat visibility
+        var visibilityUpdate: String = ""
+        //Day la list visibility cua feed ban dau
         var visibilityRootList: ArrayList<String> = ArrayList()
 
         //Nhan du lieu tu FeedActivity
         userProfile = (intent.getSerializableExtra("USER_PROFILE") as? UserProfile)!!
-        val friendList = intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>
-        val sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>?
-        val receivedInviteList = intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>?
-        val feedId = intent.getStringExtra("FEED_ID")
+        friendList = intent.getSerializableExtra("FRIEND_LIST") as ArrayList<Friend>
+        sentInviteList = intent.getSerializableExtra("SENT_INVITE_LIST") as ArrayList<Friend>
+        receivedInviteList = intent.getSerializableExtra("RECEIVED_INVITE_LIST") as ArrayList<Friend>
+        val feedId = intent.getStringExtra("FEED_ID")!!
         val description = intent.getStringExtra("DESCRIPTION")
         var visibilityRoot = intent.getStringExtra("VISIBILITY")
         val imagePath = intent.getStringExtra("IMAGE_PATH")!!
@@ -63,6 +73,7 @@ class UpdateFeedActivity : AppCompatActivity() {
         }
 
         //Tao list visibility va chuoi visibility
+        //visibilityList la list dung de bo vao recyclerView
         val visibilityList: ArrayList<Visibility> = ArrayList()
         for (f in friendList) {
             val id = f.id
@@ -84,14 +95,50 @@ class UpdateFeedActivity : AppCompatActivity() {
             }
         }
 
+        //Tao visibilityUpdate
+        for (v in visibilityRootList) {
+            if (visibilityUpdate.isEmpty()) {
+                visibilityUpdate = v
+//                Log.d("DEBUG", visibilityUpdate)
+
+            } else {
+                visibilityUpdate += ", $v"
+
+            }
+        }
+
+
         visibilityAdapter = VisibilityInFeedAdapter(visibilityList, object:
             VisibilityInFeedInterface {
             override fun onClickVisibility(position: Int) {
-                //Check va them visibility vao
                 if (!visibilityList[position].isClick) {
-
+                    //Khi chua tao visibility
+                    if (visibilityUpdate == "everyone" || visibilityUpdate == "") {
+                        // Tao chuoi visibility de gui
+                        visibilityUpdate = visibilityList[position].id
+                        // Doi mau cua nut everyone
+                        binding.imgEveryone.borderColor = Color.parseColor("#595959")
+                        // Cap nhat mau vien cua item
+                        visibilityAdapter.updateBorderColor(position)
+                    } else {
+                        visibilityUpdate += ", " + visibilityList[position].id
+                        binding.imgEveryone.borderColor = Color.parseColor("#595959")
+                        visibilityAdapter.updateBorderColor(position)
+                    }
                 } else {
-
+                    if (visibilityUpdate.contains(", ${visibilityList[position].id}")) {
+                        visibilityUpdate = visibilityUpdate.replace(", ${visibilityList[position].id}", "")
+                        binding.imgEveryone.borderColor = Color.parseColor("#595959")
+                        visibilityAdapter.updateBorderColor(position)
+                    } else if (visibilityUpdate.contains("${friendList[position].id}, ")) {
+                        visibilityUpdate = visibilityUpdate.replace("${visibilityList[position].id}, ", "")
+                        binding.imgEveryone.borderColor = Color.parseColor("#595959")
+                        visibilityAdapter.updateBorderColor(position)
+                    } else if (visibilityUpdate.contains(visibilityList[position].id)){
+                        visibilityUpdate = visibilityUpdate.replace(visibilityList[position].id, "")
+                        binding.imgEveryone.borderColor = Color.parseColor("#595959")
+                        visibilityAdapter.updateBorderColor(position)
+                    }
                 }
             }
 
@@ -102,5 +149,44 @@ class UpdateFeedActivity : AppCompatActivity() {
             this,
             LinearLayoutManager.HORIZONTAL,
             false)
+
+        binding.imgEveryone.setOnClickListener {
+            visibilityUpdate = "everyone"
+            visibilityAdapter.resetAllItems()
+            binding.imgEveryone.borderColor = Color.parseColor("#E3A400")
+        }
+
+        binding.btnSend.setOnClickListener {
+            val descriptionUpdate = binding.edtDescription.text.toString()
+            feedViewModel.updateFeed(userProfile.signInKey, userProfile.userId, feedId, descriptionUpdate, visibilityUpdate)
+        }
+
+        //Lang nghe ket qua tra ve tu server
+        feedViewModel.updateFeedResponse.observe(this) { response ->
+            handleUpdateFeedResponse(response)
+        }
+    }
+
+    private fun handleUpdateFeedResponse(response: UpdateFeedResponse) {
+        when (response.status) {
+            200 -> {
+                Log.d("UpdateFeed", "Updated feed successfully")
+                val intent = Intent(this, FeedActivity::class.java).apply {
+                    putExtra("USER_PROFILE", userProfile)
+                    putExtra("FRIEND_LIST", friendList)
+                    putExtra("SENT_INVITE_LIST", sentInviteList)
+                    putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
+                }
+                startActivity(intent)
+            }
+            400 -> {
+                // Xử lý các trạng thái lỗi khác
+                Log.e("UpdateFeed", "Lỗi khi cập nhật feed: ${response.message}")
+            }
+            else -> {
+                // Xử lý lỗi không xác định
+                Log.e("UpdateFeed", "Lỗi không xác định: ${response.message}")
+            }
+        }
     }
 }

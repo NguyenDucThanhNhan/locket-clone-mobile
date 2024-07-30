@@ -70,6 +70,7 @@ class CreateFeedActivity : AppCompatActivity() {
             override fun onClickVisibility(position: Int) {
                 //Check va them visibility vao
                 if (!visibilityList[position].isClick) {
+                    //Khi chua tao visibility
                     if (visibility == "everyone" || visibility == "") {
                         // Tao chuoi visibility de gui
                         visibility = visibilityList[position].id
@@ -111,8 +112,6 @@ class CreateFeedActivity : AppCompatActivity() {
             visibility = "everyone"
             visibilityAdapter.resetAllItems()
             binding.imgEveryone.borderColor = Color.parseColor("#E3A400")
-            //
-            Log.d("DEBUG", visibility)
         }
 
         binding.btnSend.setOnClickListener {
