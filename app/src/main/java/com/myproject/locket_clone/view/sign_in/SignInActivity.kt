@@ -70,11 +70,11 @@ class SignInActivity : AppCompatActivity() {
         }
 
         signInViewModel.signinResponse.observe(this, Observer { response ->
-            handleSigninResponse(response, password!!)
+            handleSigninResponse(response)
         })
     }
 
-    private fun handleSigninResponse(response: SigninResponse, password: String) {
+    private fun handleSigninResponse(response: SigninResponse) {
         when {
             response.status == 200 -> {
                 val metadata = response.metadata ?: return
@@ -120,8 +120,7 @@ class SignInActivity : AppCompatActivity() {
                     lastname = metadata.user.fullname.lastname,
                     birthday = metadata.user.birthday,
                     profileImageUrl = metadata.user.profileImageUrl,
-                    signInKey = metadata.signInKey,
-                    password = password
+                    signInKey = metadata.signInKey
                 )
 
                 val intent = Intent(this, HomeActivity::class.java).apply {

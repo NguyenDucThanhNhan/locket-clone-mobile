@@ -72,7 +72,6 @@ class ChangeNameActivity : AppCompatActivity() {
                 birthday = userProfile.birthday,
                 profileImageUrl = profileImageUrl,
                 signInKey = userProfile.signInKey,
-                password = userProfile.password
             )
             val intent = Intent(this, UserActivity::class.java)
             intent.putExtra("USER_PROFILE", user)

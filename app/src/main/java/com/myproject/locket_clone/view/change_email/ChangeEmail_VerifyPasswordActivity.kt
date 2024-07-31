@@ -29,17 +29,17 @@ class ChangeEmail_VerifyPasswordActivity : AppCompatActivity() {
         }
 
         binding.btnContinue.setOnClickListener {
-            val password = binding.edtPassword.text.toString()
-            if (userProfile != null) {
-                if (password == userProfile.password) {
-                    val intent = Intent(this, ChangeEmail_VerifyEmailActivity::class.java)
-                    intent.putExtra("USER_PROFILE", userProfile)
-                    intent.putExtra("FRIEND_LIST", friendList)
-                    intent.putExtra("SENT_INVITE_LIST", sentInviteList)
-                    intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
-                    startActivity(intent)
-                }
-            }
+//            val password = binding.edtPassword.text.toString()
+//            if (userProfile != null) {
+//                if (password == userProfile.password) {
+//                    val intent = Intent(this, ChangeEmail_VerifyEmailActivity::class.java)
+//                    intent.putExtra("USER_PROFILE", userProfile)
+//                    intent.putExtra("FRIEND_LIST", friendList)
+//                    intent.putExtra("SENT_INVITE_LIST", sentInviteList)
+//                    intent.putExtra("RECEIVED_INVITE_LIST", receivedInviteList)
+//                    startActivity(intent)
+//                }
+//            }
         }
 
         binding.btnBack.setOnClickListener {
